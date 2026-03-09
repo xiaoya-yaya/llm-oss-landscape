@@ -1,0 +1,19 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 201; /** 200 是 Docusaurus 顶部 Navbar 的 z-index */
+}
+
+.cardBody {
+  flex: 1;
+  padding: 0 !important;
+}

@@ -1,0 +1,136 @@
+﻿repo_id,repo_name,classification,stars,forks,openrank_25,language,created_at,description
+552661142,langchain-ai/langchain,Agent Framework - SDK,109649,17839,148,Jupyter Notebook,2022/10/17,🦜🔗 Build context-aware reasoning applications
+560704231,run-llama/llama_index,Agent Framework - SDK,42421,6082,117,Python,2022/11/2,LlamaIndex is the leading framework for building LLM-powered agents over your data.
+680120071,microsoft/autogen,Agent Framework - SDK,46112,6995,98,Python,2023/8/18,A programming framework for agentic AI 🤖 PyPi: autogen-agentchat Discord: https://aka.ms/autogen-discord Office Hour: https://aka.ms/autogen-officehour
+607289185,microsoft/semantic-kernel,Agent Framework - SDK,25066,3966,106,C#,2023/2/27,Integrate cutting-edge LLM technology quickly and easily into your apps
+676672661,langchain-ai/langgraph,Agent Framework - SDK,14343,2433,90,Python,2023/8/9,Build resilient language agents as graphs.
+710601088,crewAIInc/crewAI,Agent Framework - SDK,33053,4435,75,Python,2023/10/27,"Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks."
+946380199,openai/openai-agents-python,Agent Framework - SDK,11535,1692,69,Python,2025/3/11,"A lightweight, powerful framework for multi-agent workflows"
+615510678,camel-ai/camel,Agent Framework - SDK,12948,1389,67,Python,2023/3/17,🐫 CAMEL: The first and the best multi-agent framework. Finding the Scaling Law of Agents. https://www.camel-ai.org
+778431525,microsoft/graphrag,Agent Framework - SDK,25886,2661,40,Python,2024/3/27,A modular graph-based Retrieval-Augmented Generation (RAG) system
+656099147,mem0ai/mem0,Agent Framework - SDK,34735,3461,39,Python,2023/6/20,Memory for AI Agents; Announcing OpenMemory MCP - local and secure memory management.
+703411624,letta-ai/letta,Agent Framework - SDK,16901,1759,26,Python,2023/10/11,"Letta (formerly MemGPT) is the stateful agents framework with memory, reasoning, and context management."
+660551251,FoundationAgents/MetaGPT,Agent Framework - SDK,56480,6771,15,Python,2023/6/30,"🌟 The Multi-Agent Framework: First AI Software Company, Towards Natural Language Programming"
+958830659,google/adk-python,Agent Framework - SDK,10196,1269,96,Python,2025/4/1,"An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control."
+626805178,langgenius/dify,Agent Framework - Workflow,103653,15580,476,TypeScript,2023/4/12,Production-ready platform for agentic workflow development.
+193215554,n8n-io/n8n,Agent Framework - Workflow,108494,31097,225,TypeScript,2019/6/22,"Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations."
+730534580,infiniflow/ragflow,Agent Framework - Workflow,56471,5550,209,Python,2023/12/12,RAGFlow is an open-source RAG (Retrieval-Augmented Generation) engine based on deep document understanding.
+605673387,labring/FastGPT,Agent Framework - Workflow,24772,6379,87,TypeScript,2023/2/23,"FastGPT is a knowledge-based platform built on the LLMs, offers a comprehensive suite of out-of-the-box capabilities such as data processing, RAG retrieval, and visual AI workflow orchestration, letting you easily develop and deploy complex question-answering systems without the need for extensive setup or configuration."
+691347156,1Panel-dev/MaxKB,Agent Framework - Workflow,16855,2175,73,Python,2023/9/14,"💬 MaxKB is an open-source AI assistant for enterprise. It seamlessly integrates RAG pipelines, supports robust workflows, and provides MCP tool-use capabilities."
+621803253,FlowiseAI/Flowise,Agent Framework - Workflow,40241,20633,52,TypeScript,2023/3/31,"Build AI Agents, Visually"
+614765452,Significant-Gravitas/AutoGPT,Agent Framework - Workflow,176235,45820,47,Python,2023/3/16,"AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our mission is to provide the tools, so that you can focus on what matters."
+627480054,eosphoros-ai/DB-GPT,Agent Framework - Workflow,16790,2308,38,Python,2023/4/13,AI Native Data App Development framework with AWEL(Agentic Workflow Expression Language) and Agents
+221654678,deepset-ai/haystack,Agent Framework - Workflow,21185,2222,33,Python,2019/11/14,"AI orchestration framework to build customizable, production-ready LLM applications. Connect components (models, vector DBs, file converters) to pipelines or agents that can interact with your data. With advanced retrieval methods, it's best suited for building RAG, question answering, semantic search or conversational agent chatbots."
+621799276,chatchat-space/Langchain-Chatchat,Agent Framework - Workflow,35316,5916,15,TypeScript,2023/3/31,"Langchain-Chatchat（原Langchain-ChatGLM）基于 Langchain 与 ChatGLM, Qwen 与 Llama 等语言模型的 RAG 与 Agent 应用 | Langchain-Chatchat (formerly langchain-ChatGLM), local knowledge based LLM (like ChatGLM, Qwen and Llama) RAG and Agent app with langchain"
+23496542,triton-lang/triton,AI Compiler,15878,2049,115,MLIR,2014/8/30,Development repository for the Triton language and compiler
+523007292,openxla/xla,AI Compiler,3275,576,66,C++,2022/8/9,"A machine learning compiler for GPUs, CPUs, and ML accelerators"
+357241735,searxng/searxng,AI Search Engine,19745,2019,34,Python,2021/4/12,SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
+784181462,ItzCrazyKns/Perplexica,AI Search Engine,22394,2323,20,TypeScript,2024/4/9,Perplexica is an AI-powered search engine. It is an Open source alternative to Perplexity AI
+839372398,zaidmukaddam/scira,AI Search Engine,8319,1012,10,TypeScript,2024/8/7,Scira (Formerly MiniPerplx) is a minimalistic AI-powered search engine that helps you find information on the internet and cites it too. Powered by Vercel AI SDK! Search with models like xAI's Grok 3.
+671269505,BerriAI/litellm,API Management,24201,3224,248,Python,2023/7/27,"Python SDK, Proxy Server (LLM Gateway) to call 100+ LLM APIs in OpenAI format - [Bedrock, Azure, OpenAI, VertexAI, Cohere, Anthropic, Sagemaker, HuggingFace, Replicate, Groq]"
+890668799,modelcontextprotocol/servers,API Management,54371,6211,80,JavaScript,2024/11/19,Model Context Protocol Servers
+954873280,google/A2A,API Management,17111,1681,55,TypeScript,2025/3/25,An open protocol enabling communication and interoperability between opaque agentic applications.
+762304524,ComposioHQ/composio,API Management,25516,4420,26,Python,2024/2/23,Composio equips your AI agents & LLMs with 100+ high-quality integrations via function calling
+631254164,songquanpeng/one-api,API Management,25729,5237,24,JavaScript,2023/4/22,"LLM API 管理 & 分发系统，支持 OpenAI、Azure、Anthropic Claude、Google Gemini、DeepSeek、字节豆包、ChatGLM、文心一言、讯飞星火、通义千问、360 智脑、腾讯混元等主流模型，统一 API 适配，可用于 key 管理与二次分发。单可执行文件，提供 Docker 镜像，一键部署，开箱即用。LLM API management & key redistribution system, unifying multiple providers under a single API. Single binary, Docker-ready, with an English UI."
+204086862,streamlit/streamlit,App Framework,39942,3508,101,Python,2019/8/24,Streamlit — A faster way to build and share data apps.
+162405963,gradio-app/gradio,App Framework,38636,2950,90,Python,2018/12/19,"Build and share delightful machine learning apps, all in Python. 🌟 Star to support our work!"
+599524116,SillyTavern/SillyTavern,Client Inferface,15360,3444,48,JavaScript,2023/2/9,LLM Frontend for Power Users.
+701547123,open-webui/open-webui,Client Inferface,99256,13094,247,JavaScript,2023/10/6,"User-friendly AI Interface (Supports Ollama, OpenAI API, ...)"
+643445235,lobehub/lobe-chat,Client Inferface,62578,13018,165,TypeScript,2023/5/21,"🤯 Lobe Chat - an open-source, modern design AI chat framework. Supports multiple AI providers (OpenAI / Claude 4 / Gemini / DeepSeek / Ollama / Qwen), Knowledge Base (file upload / knowledge management / RAG ), Multi-Modal (Plugins / Artifacts / MCP) and thinking. One-click FREE deployment of your private ChatGPT/ Claude / DeepSeek application."
+612344730,ChatGPTNextWeb/NextChat,Client Inferface,83835,61107,36,TypeScript,2023/3/10,✨ Light and Fast AI Assistant. Support: Web | iOS | MacOS | Android |  Linux | Windows
+610260322,chatboxai/chatbox,Client Inferface,35324,3376,36,TypeScript,2023/3/6,"User-friendly Desktop Client App for AI Models/LLMs (GPT, Claude, Gemini, Ollama...)"
+580642043,oobabooga/text-generation-webui,Client Inferface,43967,5670,28,Python,2022/12/21,"LLM UI with advanced features, easy setup, and multiple backend support."
+527591471,AUTOMATIC1111/stable-diffusion-webui,Client Inferface,153597,28560,16,Python,2022/8/22,Stable Diffusion web UI
+862449441,stackblitz/bolt.new,Coding Assistant,15021,12675,208,TypeScript,2024/9/24,"Prompt, run, edit, and deploy full-stack web applications"
+644686905,continuedev/continue,Coding Assistant,27104,2979,169,TypeScript,2023/5/24,"⏩ Create, share, and use custom AI code assistants with our open-source IDE extensions and hub of models, rules, prompts, docs, and other building blocks"
+824874689,cline/cline,Coding Assistant,45827,5720,147,TypeScript,2024/7/6,"Autonomous coding agent right in your IDE, capable of creating/editing files, executing commands, using the browser, and more with your permission every step of the way."
+771302083,All-Hands-AI/OpenHands,Coding Assistant,58364,6701,127,Python,2024/3/13,"🙌 OpenHands: Code Less, Make More"
+638629097,Aider-AI/aider,Coding Assistant,34453,3156,116,Python,2023/5/9,aider is AI pair programming in your terminal
+664592117,sourcegraph/cody,Coding Assistant,3703,428,110,TypeScript,2023/7/10,"Type less, code more: Cody is an AI code assistant that uses advanced search and codebase context to help you write and fix code."
+614764248,TabbyML/tabby,Coding Assistant,31428,1502,39,Rust,2023/3/16,Self-hosted AI coding assistant
+662766482,qodo-ai/pr-agent,Coding Assistant,8151,935,27,Python,2023/7/5,"🚀 PR-Agent (Qodo Merge open-source): An AI-Powered 🤖 Tool for Automated Pull Request Analysis, Feedback, Suggestions and More! 💻🔍"
+33884891,apache/airflow,Data Integration,40597,15170,280,Python,2015/4/13,"Apache Airflow - A platform to programmatically author, schedule, and monitor workflows"
+283046497,airbytehq/airbyte,Data Integration,18450,4585,201,Python,2020/7/27,"The leading data integration platform for ETL / ELT data pipelines from APIs, databases & files to data warehouses, data lakes & data lakehouses. Both self-hosted and Cloud-hosted."
+131619646,dagster-io/dagster,Data Integration,13390,1712,172,Python,2018/4/30,"An orchestration platform for the development, production, and observation of data assets."
+139199684,PrefectHQ/prefect,Data Integration,19548,1852,86,Python,2018/6/29,Prefect is a workflow orchestration framework for building resilient data pipelines in Python.
+761150311,Zipstack/unstract,Data Integration,5359,502,34,Python,2024/2/21,No-code LLM Platform to launch APIs and ETL Pipelines to structure unstructured documents
+820144741,iterative/datachain,Data Integration,2584,114,26,Python,2024/6/25,"ETL, Analytics, Versioning for Unstructured Data"
+53548867,dbt-labs/dbt-core,Data Integration,10986,1753,38,Python,2016/3/10,dbt enables data analysts and engineers to transform their data using the same practices that software engineers use to build applications.
+541798154,Unstructured-IO/unstructured,Data Integration,11529,958,19,HTML,2022/9/26,"Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured formats for language models.  Visit our website to learn more about our enterprise grade Platform product for production grade workflows, partitioning, enrichments, chunking and embedding."
+192640529,HumanSignal/label-studio,Data Labeling,22561,2819,73,JavaScript,2019/6/19,Label Studio is a multi-type data labeling and annotation tool with standardized output format
+139156354,cvat-ai/cvat,Data Labeling,13900,3260,54,Python,2018/6/29,"Annotate better with CVAT, the industry-leading data engine for machine learning. Used and trusted by teams at any scale, for data of any scale."
+71932349,ray-project/ray,Distributed Processing,37572,6438,230,Python,2016/10/25,Ray is an AI compute engine. Ray consists of a core distributed runtime and a set of AI Libraries for accelerating ML workloads.
+17165658,apache/spark,Distributed Processing,41326,28615,192,Scala,2014/2/25,Apache Spark - A unified analytics engine for large-scale data processing
+175592968,volcano-sh/volcano,Distributed Processing,4757,1124,39,Go,2019/3/14,A Cloud Native Batch System (Project under CNCF)
+28782747,dask/dask,Distributed Processing,13273,1774,19,Python,2015/1/4,Parallel computing with task scheduling
+654124617,open-compass/opencompass,Evaluation Platform,5523,601,34,Python,2023/6/15,"OpenCompass is an LLM evaluation platform, supporting a wide range of models (Llama3, Mistral, InternLM2,GPT-4,LLaMa2, Qwen,GLM, Claude, etc) over 100+ datasets."
+615882673,lm-sys/FastChat,Evaluation Platform,38740,4720,10,Python,2023/3/19,"An open platform for training, serving, and evaluating large language models. Release repo for Vicuna and Chatbot Arena."
+943934999,mannaandpoem/OpenManus,General Assistant,535,201,0,Python,2025/5/14,A comprehensive general assistant
+942114501,camel-ai/owl,General Assistant,17056,1997,40,Python,2025/3/3,🦉 OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation
+949271792,mindverse/Second-Me,General Assistant,12813,922,26,Python,2025/3/16,"Train your AI self, amplify you, bridge the world"
+112542515,NVIDIA/cutlass,AI Kernel Library,7707,1273,36,C++,2017/11/30,CUDA Templates for Linear Algebra Subroutines
+669331976,flashinfer-ai/flashinfer,AI Kernel Library,3190,337,31,Cuda,2023/7/22,FlashInfer: Kernel Library for LLM Serving
+494232964,Dao-AILab/flash-attention,AI Kernel Library,17887,1748,31,Python,2022/5/19,Fast and memory-efficient exact attention
+46153892,NVIDIA/nccl,AI Kernel Library,3791,936,19,C++,2015/11/14,Optimized primitives for collective multi-GPU communication
+933928679,deepseek-ai/DeepEP,AI Kernel Library,7883,802,18,Cuda,2025/2/17,DeepEP: an efficient expert-parallel communication library
+724854743,ml-explore/mlx,AI Kernel Library,21101,1233,34,C++,2023/11/28,MLX: An array framework for Apple silicon
+658928958,ollama/ollama,Inference Deploy,143946,12109,303,Go,2023/6/26,"Get up and running with Llama 3.3, DeepSeek-R1, Phi-4, Gemma 3, Mistral Small 3.1 and other large language models."
+653496050,xorbitsai/inference,Inference Deploy,8049,693,66,Python,2023/6/14,"Replace OpenAI GPT with another LLM in your app by changing a single line of code. Xinference gives you the freedom to use any LLM you need. With Xinference, you're empowered to run inference with any open-source language models, speech recognition models, and multimodal models, whether in the cloud, on-premises, or even on your laptop."
+942206898,ai-dynamo/dynamo,Inference Deploy,4288,427,79,Rust,2025/3/3,A Datacenter Scale Distributed Inference Serving Framework
+151636194,triton-inference-server/server,Inference Deploy,9349,1597,37,Python,2018/10/4,The Triton Inference Server provides an optimized cloud and edge inferencing solution.
+619959033,nomic-ai/gpt4all,Inference Deploy,73637,8049,26,C++,2023/3/27,GPT4All: Run Local LLMs on Any Device. Open-source and available for commercial use.
+178075572,kserve/kserve,Inference Deploy,4265,1188,29,Python,2019/3/27,Standardized Serverless ML Inference Platform on Kubernetes
+819733173,kvcache-ai/Mooncake,Inference Deploy,3430,284,23,C++,2024/6/25,"Mooncake is the serving platform for Kimi, a leading LLM service provided by Moonshot AI."
+813348592,vllm-project/aibrix,Inference Deploy,3740,379,24,Jupyter Notebook,2024/6/10,Cost-efficient and pluggable Infrastructure components for GenAI inference
+634081686,mlc-ai/mlc-llm,Inference Deploy,20813,1749,16,Python,2023/4/29,Universal LLM Deployment Engine with ML Compilation
+178976529,bentoml/BentoML,Inference Deploy,7788,844,14,Python,2019/4/2,"The easiest way to serve AI apps and models - Build Model Inference APIs, Job queues, LLM apps, Multi-model pipelines, and more!"
+599547518,vllm-project/vllm,Inference Engine,49928,8092,634,Python,2023/2/9,A high-throughput and memory-efficient inference and serving engine for LLMs
+153097643,openvinotoolkit/openvino,Inference Engine,8442,2631,276,C++,2018/10/15,OpenVINO™ is an open source toolkit for optimizing and deploying AI inference
+740303686,sgl-project/sglang,Inference Engine,15230,2067,288,Python,2024/1/8,SGLang is a fast serving framework for large language models and vision language models.
+612354784,ggml-org/llama.cpp,Inference Engine,81885,12117,239,C++,2023/3/10,LLM inference in C/C++
+156939672,microsoft/onnxruntime,Inference Engine,16944,3276,198,C++,2018/11/10,"ONNX Runtime: cross-platform, high performance ML inferencing and training accelerator"
+679366051,NVIDIA/TensorRT-LLM,Inference Engine,10765,1504,119,C++,2023/8/16,TensorRT-LLM provides users with an easy-to-use Python API to define Large Language Models (LLMs) and support state-of-the-art optimizations to perform inference efficiently on NVIDIA GPUs. TensorRT-LLM also contains components to create Python and C++ runtimes that orchestrate the inference execution in performant way.
+833984877,kvcache-ai/ktransformers,Inference Engine,14414,1026,86,Python,2024/7/26,A Flexible Framework for Experiencing Cutting-edge LLM Inference Optimizations
+654122609,InternLM/lmdeploy,Inference Engine,6538,559,64,Python,2023/6/15,"LMDeploy is a toolkit for compressing, deploying, and serving LLMs."
+547806116,huggingface/text-generation-inference,Inference Engine,10230,1201,38,Python,2022/10/8,Large Language Model Text Generation Inference
+136202695,mlflow/mlflow,MLOps,20909,4609,97,Python,2018/6/5,Open source platform for the machine learning lifecycle
+86031674,wandb/wandb,MLOps,9987,749,80,Python,2017/3/24,"The AI developer platform. Use Weights & Biases to train and fine-tune models, and manage models from experimentation to production."
+205706595,mlrun/mlrun,MLOps,1546,265,54,Python,2019/9/1,"MLRun is an open source MLOps platform for quickly building and managing continuous ML applications across their lifecycle. MLRun integrates into your development and CI/CD environment and automates the delivery of production data, ML pipelines, and online applications."
+448599559,deepflowio/deepflow,MLOps,3352,371,49,Go,2022/1/16,eBPF Observability - Distributed Tracing and Profiling
+216628419,flyteorg/flyte,MLOps,6296,725,40,Go,2019/10/21,"Scalable and flexible workflow orchestration platform that seamlessly unifies data, ML and analytics stacks."
+209120637,Netflix/metaflow,MLOps,8892,842,26,Python,2019/9/17,"Build, Manage and Deploy AI/ML Systems"
+314197645,zenml-io/zenml,MLOps,4638,509,25,Python,2020/11/19,ZenML 🙏: The bridge between ML and Ops. https://zenml.io.
+646410686,hiyouga/LLaMA-Factory,Post-train,52495,6391,132,Python,2023/5/28,Unified Efficient Fine-Tuning of 100+ LLMs & VLMs (ACL 2024)
+725205304,unslothai/unsloth,Post-train,40690,3240,111,Python,2023/11/29,"Fine-tuning & Reinforcement Learning for LLMs. 🦥 Train Qwen3, Llama 4, DeepSeek-R1, Gemma 3, TTS 2x faster with 70% less VRAM."
+881221486,volcengine/verl,Post-train,9602,1447,106,Python,2024/10/31,verl: Volcano Engine Reinforcement Learning for LLMs
+672415139,OpenRLHF/OpenRLHF,Post-train,7105,689,40,Python,2023/7/30,"An Easy-to-use, Scalable and High-performance RLHF Framework based on Ray (PPO & GRPO & REINFORCE++ & vLLM & Ray & Dynamic Sampling & Async Agent RL)"
+534011733,Farama-Foundation/Gymnasium,Post-train,9416,1039,10,Python,2022/9/8,"An API standard for single-agent reinforcement learning environments, with popular reference environments and related utilities (formerly Gym)"
+65600975,pytorch/pytorch,Pre-train,90854,24458,924,Python,2016/8/13,Tensors and Dynamic neural networks in Python with strong GPU acceleration
+65711522,PaddlePaddle/Paddle,Pre-train,22871,5747,214,C++,2016/8/15,PArallel Distributed Deep LEarning: Machine Learning Framework from Industrial Practice （『飞桨』核心框架，深度学习&机器学习高性能单机、分布式训练和跨平台部署）
+200722670,NVIDIA/NeMo,Pre-train,14834,2940,199,Python,2019/8/5,"A scalable generative AI framework built for researchers and developers working on Large Language Models, Multimodal, and Speech AI (Automatic Speech Recognition and Text-to-Speech)"
+154739597,jax-ml/jax,Pre-train,32556,3063,100,Python,2018/10/25,"Composable transformations of Python+NumPy programs: differentiate, vectorize, JIT to GPU/TPU, and more"
+45717250,tensorflow/tensorflow,Pre-train,190392,74702,75,C++,2015/11/7,An Open Source Machine Learning Framework for Everyone
+33015583,keras-team/keras,Pre-train,63132,19582,60,Python,2015/3/28,Deep Learning for humans
+235860204,deepspeedai/DeepSpeed,Pre-train,38978,4422,57,Python,2020/1/23,"DeepSpeed is a deep learning optimization library that makes distributed training and inference easy, efficient, and effective."
+176982014,NVIDIA/Megatron-LM,Pre-train,12595,2853,20,Python,2019/3/21,Ongoing research training transformer models at scale
+422274596,hpcaitech/ColossalAI,Pre-train,40974,4522,17,Python,2021/10/28,"Making large AI models cheaper, faster and more accessible"
+589831718,comfyanonymous/ComfyUI,Tool use,79943,8842,154,Python,2023/1/17,"The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface."
+644461337,vercel/ai,Tool use,15008,2398,115,TypeScript,2023/5/23,"The AI Toolkit for TypeScript. From the creators of Next.js, the AI SDK is a free open-source library for building AI-powered applications and agents"
+881458615,browser-use/browser-use,Tool use,63407,7179,100,Python,2024/10/31,🌐 Make websites accessible for AI agents. Automate tasks online with ease.
+860252770,microsoft/OmniParser,Tool use,22452,1886,16,Jupyter Notebook,2024/9/20,A simple screen parsing tool towards pure vision based GUI agent
+391740664,open-metadata/OpenMetadata,Unstructured Data Governance - Catalog,6907,1268,118,TypeScript,2021/8/1,"OpenMetadata is a unified metadata platform for data discovery, data observability, and data governance powered by a central metadata repository, in-depth column level lineage, and seamless team collaboration."
+46398090,datahub-project/datahub,Unstructured Data Governance - Catalog,10730,3135,98,Java,2015/11/18,The Metadata Platform for your Data and AI Stack
+631431061,apache/gravitino,Unstructured Data Governance - Catalog,1643,497,81,Java,2023/4/23,"World's most powerful open data catalog for building a high-performance, geo-distributed and federated metadata lake."
+814708478,unitycatalog/unitycatalog,Unstructured Data Governance - Catalog,2929,482,23,Python,2024/6/13,"Open, Multi-modal Catalog for Data & AI"
+158256479,apache/iceberg,Unstructured Data Governance - Lake Format,7593,2615,129,Java,2018/11/19,Apache Iceberg
+76474200,apache/hudi,Unstructured Data Governance - Lake Format,5840,2413,87,Java,2016/12/14,"Upserts, Deletes And Incremental Processing on Big Data."
+447060287,apache/paimon,Unstructured Data Governance - Lake Format,2845,1134,80,Java,2022/1/12,Apache Paimon is a lake format that enables building a Realtime Lakehouse Architecture with Flink and Spark for both streaming and batch operations.
+182849188,delta-io/delta,Unstructured Data Governance - Lake Format,8083,1848,67,Scala,2019/4/22,"An open-source storage framework that enables building a Lakehouse architecture with compute engines including Spark, PrestoDB, Flink, Trino, and Hive and APIs"
+507775,elastic/elasticsearch,Vector Storage and Search,72978,25265,349,Java,2010/2/8,"Free and Open Source, Distributed, RESTful Search Engine"
+208728772,milvus-io/milvus,Vector Storage and Search,35444,3259,153,Go,2019/9/16,"Milvus is a high-performance, cloud-native vector database built for scalable vector ANN search"
+334274271,opensearch-project/OpenSearch,Vector Storage and Search,10957,2173,117,Java,2021/1/29,🔎 Open source distributed and RESTful search engine.
+55072677,weaviate/weaviate,Vector Storage and Search,13661,971,74,Go,2016/3/30,"Weaviate is an open-source vector database that stores both objects and vectors, allowing for the combination of vector search with structured filtering with the fault tolerance and scalability of a cloud-native database​."
+546206616,chroma-core/chroma,Vector Storage and Search,20525,1650,70,Rust,2022/10/5,the AI-native open-source embedding database
+268163609,qdrant/qdrant,Vector Storage and Search,24215,1658,58,Rust,2020/5/30,"Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/"
+607441698,lancedb/lancedb,Vector Storage and Search,6662,498,29,Rust,2023/2/28,"Developer-friendly, embedded retrieval engine for multimodal AI. Search More; Manage Less."
+359952601,pgvector/pgvector,Vector Storage and Search,16134,789,10,C,2021/4/20,Open-source vector similarity search for Postgres

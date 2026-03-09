@@ -1,0 +1,12 @@
+{
+  "extends": "@docusaurus/tsconfig",
+  "compilerOptions": {
+    "target": "ES2015",
+    "baseUrl": ".",
+    "paths": {
+      "@site/*": [
+        "*"
+      ],
+    }
+  }
+}

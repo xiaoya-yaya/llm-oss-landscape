@@ -1,0 +1,111 @@
+/* Container and general layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.header p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Status indicators */
+.loading {
+  color: #1890ff;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.error {
+  color: #ff4d4f;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* Chart section */
+.chartSection {
+  margin-bottom: 40px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chartContainer {
+  height: 400px;
+  width: 100%;
+}
+
+/* Developer section */
+.developerSection {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Developer info styling */
+.developerCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.developerInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.developerName {
+  color: #666;
+  font-size: 12px;
+}
+
+.colorDot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 12px;
+}
+
+.socialIcon {
+  font-size: 18px;
+  color: #1890ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .chartContainer {
+    height: 300px;
+  }
+}

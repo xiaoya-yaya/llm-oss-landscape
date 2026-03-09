@@ -1,0 +1,82 @@
+﻿id,full_name,description,html_url,forks_count,stargazers_count,created_at,pushed_at
+125461261,alipay/ant-ray,A high-performance distributed execution engine,https://github.com/alipay/ant-ray,15,69,2018/3/16,2024/10/14
+126941683,alipay/rdf-file,Rdf-File是一个处理结构化文本文件的工具组件,https://github.com/alipay/rdf-file,74,150,2018/3/27,2024/10/3
+132569986,alipay/alipay-sdk-java-all,支付宝开放平台 Alipay SDK for Java,https://github.com/alipay/alipay-sdk-java-all,214,533,2018/5/8,2024/10/16
+133338689,alipay/alipay-sdk-python-all,支付宝开放平台 Alipay SDK for Python,https://github.com/alipay/alipay-sdk-python-all,66,269,2018/5/14,2024/10/16
+137934846,alipay/mobius,,https://github.com/alipay/mobius,0,0,2018/6/19,2018/6/19
+140786556,alipay/alipay-sdk-nodejs-all,支付宝开放平台 Alipay SDK for Node.js,https://github.com/alipay/alipay-sdk-nodejs-all,64,408,2018/7/13,2024/8/27
+148419955,alipay/jpmml-sparkml-lightgbm,JPMML-SparkML plugin for converting LightGBM-Spark models to PMML,https://github.com/alipay/jpmml-sparkml-lightgbm,9,41,2018/9/12,2021/10/23
+149056940,alipay/alipay-intellij-plugin,Intellij IDEA Plugin,https://github.com/alipay/alipay-intellij-plugin,3,20,2018/9/17,2019/5/10
+152773829,alipay/antcloud-node-stack,蚂蚁金融科技官方 Node 技术栈脚本,https://github.com/alipay/antcloud-node-stack,7,159,2018/10/12,2022/2/11
+174248072,alipay/tensorflow_io,Datasets and filesystem extensions maintained by SIG-IO,https://github.com/alipay/tensorflow_io,2,7,2019/3/7,2019/5/21
+175650201,alipay/SoloPi,SoloPi 自动化测试工具,https://github.com/alipay/SoloPi,1211,5794,2019/3/14,2024/7/11
+186004534,alipay/SOFAStack,"SOFAStack™ (Scalable Open Financial Architecture Stack) is a collection of cloud native middleware components, which are designed to build distributed systems with high performance and reliability, and have been fully validated by mission-critical financial business scenarios.",https://github.com/alipay/SOFAStack,27,138,2019/5/10,2023/2/10
+186004616,alipay/SQLFlow,"SQLFlow is a bridge that connects a SQL engine, e.g. MySQL, Hive, SparkSQL or SQL Server, with TensorFlow and other machine learning toolkits. SQLFlow extends the SQL language to enable model training, prediction and inference.",https://github.com/alipay/SQLFlow,10,73,2019/5/10,2019/5/10
+191356309,alipay/ant-xgboost,"Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library,  for Python, R, Java, Scala, C++ and more. Runs on single machine, Hadoop, Spark, Flink and DataFlow",https://github.com/alipay/ant-xgboost,5,11,2019/6/11,2019/10/25
+202647866,alipay/mPaaS,mPaaS Demo 合集，mPaaS 是源自于支付宝的移动开发平台。The collection of demos for mPaaS components. mPaaS is the Mobile Development Platform which oriented from Alipay.,https://github.com/alipay/mPaaS,55,326,2019/8/16,2024/9/18
+202680475,alipay/grpc,"The C based gRPC (C++, Python, Ruby, Objective-C, PHP, C#)",https://github.com/alipay/grpc,2,1,2019/8/16,2019/11/25
+202680584,alipay/grpc-rs,The gRPC library for Rust built on C Core library and futures,https://github.com/alipay/grpc-rs,3,0,2019/8/16,2019/11/26
+203112997,alipay/tls13-sm-spec,IETF Internet-Draft (I-D) of Chinese cipher suites in TLSv1.3 and related documentation.,https://github.com/alipay/tls13-sm-spec,8,27,2019/8/19,2021/3/9
+216473227,alipay/ams-java-sdk,AMS Java binding ,https://github.com/alipay/ams-java-sdk,21,14,2019/10/21,2022/5/21
+217975170,alipay/goldfish,A development framework for Alipay Mini Program.,https://github.com/alipay/goldfish,15,80,2019/10/28,2023/12/19
+219427117,alipay/global-open-sdk-java,Ant global gateway SDK ,https://github.com/alipay/global-open-sdk-java,20,36,2019/11/4,2024/10/24
+223427951,alipay/alipay-sdk-net-all,支付宝开放平台 Alipay SDK for .NET,https://github.com/alipay/alipay-sdk-net-all,60,201,2019/11/22,2024/10/16
+225315902,alipay/alipay-sdk-php-all,支付宝开放平台 Alipay SDK for PHP,https://github.com/alipay/alipay-sdk-php-all,77,156,2019/12/2,2024/10/16
+227745673,alipay/payment-code-widget,A lightweight library provides UI widgets to display payment code in mobile applications. The dimension of the payment code is optimal and scanner-friendly.,https://github.com/alipay/payment-code-widget,1,6,2019/12/13,2019/12/13
+232733886,alipay/promo-mini-component,支付宝营销玩法小程序组件库,https://github.com/alipay/promo-mini-component,12,32,2020/1/9,2021/10/9
+234217506,alipay/global-open-sdk-php,Ant global gateway SDK,https://github.com/alipay/global-open-sdk-php,7,17,2020/1/16,2024/10/22
+242659126,alipay/alipay-easysdk,Alipay Easy SDK for multi-language(java、c#、php、ts etc.) allows you to enjoy a minimalist programming experience and quickly access the various high-frequency capabilities of the Alipay Open Platform.,https://github.com/alipay/alipay-easysdk,442,1110,2020/2/24,2024/6/14
+273125353,alipay/global-open-sdk-python,Ant global gateway SDK ,https://github.com/alipay/global-open-sdk-python,11,10,2020/6/18,2024/10/21
+275503105,alipay/antchain-openapi-util-sdk,,https://github.com/alipay/antchain-openapi-util-sdk,9,3,2020/6/28,2024/10/3
+275521177,alipay/antchain-openapi-prod-sdk,,https://github.com/alipay/antchain-openapi-prod-sdk,10,10,2020/6/28,2024/10/25
+298957146,alipay/quic-lb,"nginx-quic-lb is an implementation of ietf-quic-lb, based on nginx-release-1.18.0, you can see the detailed code in this pull request",https://github.com/alipay/quic-lb,8,41,2020/9/27,2022/3/15
+304289381,alipay/global-open-sdk-dotnet,,https://github.com/alipay/global-open-sdk-dotnet,2,3,2020/10/15,2024/10/23
+313797990,alipay/ray-contrib,Contributed modules to ray,https://github.com/alipay/ray-contrib,0,0,2020/11/18,2022/3/9
+351355093,alipay/ios-malicious-bithunter,"iOS Malicious Bit Hunter is a malicious plug-in detection engine for iOS applications. It can analyze the head of the macho file of the injected dylib dynamic library based on runtime. If you are interested in other programs of the author, please visit https://github.com/SecurityLife",https://github.com/alipay/ios-malicious-bithunter,9,84,2021/3/25,2021/4/20
+370966940,alipay/AOP-Based-Runtime-Security-Analysis-Toolkit,,https://github.com/alipay/AOP-Based-Runtime-Security-Analysis-Toolkit,2,8,2021/5/26,2021/5/27
+377362680,alipay/Owfuzz,Owfuzz: a WiFi protocol fuzzing tool,https://github.com/alipay/Owfuzz,33,217,2021/6/16,2023/2/15
+430689327,alipay/Antchain-MPC,Antchain-MPC is a library of MPC (Multi-Parties Computation),https://github.com/alipay/Antchain-MPC,11,57,2021/11/22,2023/12/26
+472592789,alipay/ai-cache-loadtest,,https://github.com/alipay/ai-cache-loadtest,1,0,2022/3/22,2022/3/22
+529131179,alipay/PASE,,https://github.com/alipay/PASE,9,43,2022/8/26,2022/8/26
+550747726,alipay/container-auto-tune,"Container Auto Tune is an intelligent parameter tuning product that helps developers, operators automatically adjust the application, analyzes JVM reasonable configuration parameters through intelligent algorithms.Please visit the official site for the quick start guide and documentation.",https://github.com/alipay/container-auto-tune,3,32,2022/10/13,2023/2/24
+582198351,alipay/ant-application-security-testing-benchmark,"xAST评价体系，让安全工具不再“黑盒”.   The xAST evaluation benchmark makes security tools no longer a ""black box"".",https://github.com/alipay/ant-application-security-testing-benchmark,41,327,2022/12/26,2024/10/14
+582201795,alipay/A2-efficient-automated-attacker-for-boosting-adversarial-training,,https://github.com/alipay/A2-efficient-automated-attacker-for-boosting-adversarial-training,0,4,2022/12/26,2022/12/26
+583668768,alipay/NMCDR,,https://github.com/alipay/NMCDR,1,4,2022/12/30,2023/1/12
+613201788,alipay/Z-RareCharacterSolution,,https://github.com/alipay/Z-RareCharacterSolution,7,45,2023/3/13,2024/4/7
+629303973,alipay/character-js,,https://github.com/alipay/character-js,2,19,2023/4/18,2023/4/21
+640796134,alipay/onnx,Open standard for machine learning interoperability,https://github.com/alipay/onnx,1,0,2023/5/15,2023/6/30
+640796897,alipay/tensorflow-onnx,"Convert TensorFlow, Keras, Tensorflow.js and Tflite models to ONNX",https://github.com/alipay/tensorflow-onnx,0,0,2023/5/15,2023/5/12
+640797334,alipay/onnxruntime,"ONNX Runtime: cross-platform, high performance ML inferencing and training accelerator",https://github.com/alipay/onnxruntime,1,0,2023/5/15,2023/6/21
+640797610,alipay/onnxruntime-extensions,The pre- and post- processing library for ONNX Runtime,https://github.com/alipay/onnxruntime-extensions,0,0,2023/5/15,2023/5/15
+668164078,alipay/ant-application-security-testing-benchmark-nodejs,,https://github.com/alipay/ant-application-security-testing-benchmark-nodejs,3,8,2023/7/19,2024/4/23
+679191830,alipay/BehaviorAugmentedRelevanceModel,"Implementation and data of the paper ""Beyond Semantics: Learning a Behavior Augmented Relevance Model with Self-supervised Learning"" in CIKM'23.",https://github.com/alipay/BehaviorAugmentedRelevanceModel,0,1,2023/8/16,2023/8/16
+681021458,alipay/Ant-Multi-Modal-Framework, Research Code for  Multimodal-Cognition Team in Ant Group,https://github.com/alipay/Ant-Multi-Modal-Framework,5,115,2023/8/21,2024/7/11
+684919107,alipay/microservice_system_twin_graph_based_anomaly_detection,,https://github.com/alipay/microservice_system_twin_graph_based_anomaly_detection,2,29,2023/8/30,2023/10/25
+687396446,alipay/financial_evaluation_dataset,,https://github.com/alipay/financial_evaluation_dataset,14,165,2023/9/5,2023/12/25
+688401774,alipay/ComBERT,,https://github.com/alipay/ComBERT,0,7,2023/9/7,2023/9/8
+696243775,alipay/container-observability-service,"Simplify Kubernetes applications operation with one-stop observability services, including resource delivery SLO，root cause diagnoses and container lifecycle tracing and more.",https://github.com/alipay/container-observability-service,16,89,2023/9/25,2024/9/5
+702469988,alipay/ATTEMPT_Pre-training_with_Aspect-Content_Text_Mutual_Prediction,,https://github.com/alipay/ATTEMPT_Pre-training_with_Aspect-Content_Text_Mutual_Prediction,0,2,2023/10/9,2023/11/5
+709095132,alipay/Automatic_AI_Model_Greenness_Track_Toolkit,,https://github.com/alipay/Automatic_AI_Model_Greenness_Track_Toolkit,0,3,2023/10/24,2023/11/2
+722010431,alipay/PC2-NoiseofWeb,Noise of Web (NoW) is a challenging noisy correspondence learning (NCL) benchmark containing 100K image-text pairs for robust image-text matching/retrieval models.,https://github.com/alipay/PC2-NoiseofWeb,1,11,2023/11/22,2024/9/5
+733497470,alipay/PainlessInferenceAcceleration,,https://github.com/alipay/PainlessInferenceAcceleration,19,285,2023/12/19,2024/7/20
+735497726,alipay/private_llm,,https://github.com/alipay/private_llm,8,29,2023/12/25,2024/1/11
+735773826,alipay/RJU_Ant_QA,The RJUA-QA (RenJi hospital department of Urology and Antgroup collaborative Question and Answer dataset) is an innovative medical urology specialty QA inference dataset. ,https://github.com/alipay/RJU_Ant_QA,0,49,2023/12/26,2024/4/22
+744101393,alipay/mobile-agent,,https://github.com/alipay/mobile-agent,2,29,2024/1/16,2024/3/19
+764625035,alipay/Analogic-Reasoning-Augmented-Large-Language-Model,,https://github.com/alipay/Analogic-Reasoning-Augmented-Large-Language-Model,1,2,2024/2/28,2024/3/1
+773591236,alipay/tldk,This is a fork of FDio/tldk.,https://github.com/alipay/tldk,3,4,2024/3/18,2024/9/26
+774135708,alipay/Finite_State_Autoregressive_Entropy_Coding,,https://github.com/alipay/Finite_State_Autoregressive_Entropy_Coding,1,5,2024/3/19,2024/3/25
+790291008,alipay/idlark,,https://github.com/alipay/idlark,0,0,2024/4/22,2024/4/23
+790704526,alipay/agentUniverse,agentUniverse is a LLM multi-agent framework that allows developers to easily build multi-agent applications. ,https://github.com/alipay/agentUniverse,106,839,2024/4/23,2024/10/24
+790704969,alipay/agentUniverse-Guides,,https://github.com/alipay/agentUniverse-Guides,1,8,2024/4/23,2024/6/5
+803151772,alipay/AmortizedPeriod,,https://github.com/alipay/AmortizedPeriod,0,0,2024/5/20,2024/5/20
+804304886,alipay/Pattern-Based-Compression,High-Ratio Compression for Machine-Generated Data,https://github.com/alipay/Pattern-Based-Compression,0,12,2024/5/22,2024/5/23
+805269849,alipay/A-Knowledge-augmented-Method-DiKGRS,,https://github.com/alipay/A-Knowledge-augmented-Method-DiKGRS,1,2,2024/5/24,2024/5/28
+807008723,alipay/DUPLEX,,https://github.com/alipay/DUPLEX,0,4,2024/5/28,2024/5/28
+813716022,alipay/MMDL-based-Data-Augmentation-with-Domain-Knowledge-for-Time-Series-Classification,This repository contains the official implementation for the paper: MMDL-based Data Augmentation with Domain Knowledge for Time Series Classification.,https://github.com/alipay/MMDL-based-Data-Augmentation-with-Domain-Knowledge-for-Time-Series-Classification,0,1,2024/6/11,2024/6/12
+822902769,alipay/YiJian-Community,YiJian-Comunity: a full-process automated large model safety evaluation tool designed for academic research,https://github.com/alipay/YiJian-Community,12,65,2024/7/2,2024/10/12
+826115941,alipay/style-tokenizer,,https://github.com/alipay/style-tokenizer,3,53,2024/7/9,2024/7/9
+833504767,alipay/vsag,vsag is a vector indexing library used for similarity search.,https://github.com/alipay/vsag,12,128,2024/7/25,2024/10/24
+838456300,alipay/MMLRec-A-Unified-Multi-Task-and-Multi-Scenario-Learning-Benchmark-for-Recommendation,,https://github.com/alipay/MMLRec-A-Unified-Multi-Task-and-Multi-Scenario-Learning-Benchmark-for-Recommendation,0,4,2024/8/5,2024/8/13
+839647711,alipay/POA,,https://github.com/alipay/POA,1,15,2024/8/8,2024/8/8
+855652385,alipay/SCALA-1B,,https://github.com/alipay/SCALA-1B,0,0,2024/9/11,2024/9/11
+863882235,alipay/global-open-sdk-go,,https://github.com/alipay/global-open-sdk-go,0,1,2024/9/27,2024/10/24

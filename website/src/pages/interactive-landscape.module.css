@@ -1,0 +1,495 @@
+.pageContainer {
+  padding: 20px;
+  max-width: 98%;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-top: 20px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #4285f4;
+}
+
+.clearSearch {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+}
+
+.clearSearch:hover {
+  color: #666;
+}
+
+.errorMessage {
+  color: #d32f2f;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(211, 47, 47, 0.1);
+  border-radius: 4px;
+}
+
+.sampleDataNotice {
+  color: #ff9800;
+  padding: 10px;
+  margin: 10px 0 20px;
+  background-color: rgba(255, 152, 0, 0.1);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ProductHunt-style hierarchical categories */
+.categoriesHierarchy {
+  margin: 10px 0 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.categoryGroup {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.categoryGroupButton {
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.categoryGroupButton:hover {
+  background-color: #e9e9e9;
+}
+
+.categoryGroupButtonActive {
+  background-color: #e6f2ff;
+  border-color: #b3d7ff;
+}
+
+.categoryGroupIcon {
+  margin-left: 8px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.categoryItems {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  min-width: 100%;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  margin-top: 4px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.categoryItem {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.categoryItem:hover {
+  background-color: #f9f9f9;
+}
+
+.categoryItemActive {
+  background-color: #f0f7ff;
+  border-color: #c2e0ff;
+}
+
+.categoryColorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.clearFilters {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearFilters:hover {
+  background-color: #f5f5f5;
+}
+
+/* ProductHunt-style Project Cards */
+.phProjectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 15px;
+}
+
+.phProjectCard {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.phProjectCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.phProjectHeader {
+  padding: 20px 20px 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.phProjectLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.phProjectInfo {
+  flex: 1;
+}
+
+.phProjectName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: #333;
+}
+
+.phProjectDescription {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.phProjectMeta {
+  padding: 10px 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phProjectStats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.phProjectStat {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.phStatIcon {
+  margin-right: 4px;
+}
+
+.phStatValue {
+  font-weight: 500;
+  color: #333;
+}
+
+.phProjectCategory {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  color: white;
+  margin-left: 8px;
+}
+
+.phProjectActions {
+  display: flex;
+  gap: 8px;
+}
+
+.phActionButton {
+  background: none;
+  border: 1px solid #e0e0e0;
+  min-width: 40px;
+  height: 28px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #666;
+  padding: 0 6px;
+}
+
+.voteCount {
+  margin-left: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.phActionButton:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.phActionButtonActive {
+  background-color: #ff6154;
+  border-color: #ff6154;
+  color: white;
+}
+
+.phActionIcon {
+  font-size: 0.8rem;
+}
+
+/* Comments section styling */
+.commentsSection {
+  padding: 15px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+}
+
+.commentsTitle {
+  font-size: 1rem;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.commentsList {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.commentItem {
+  padding: 8px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.commentAuthor {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.commentText {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.commentForm {
+  display: flex;
+  gap: 8px;
+}
+
+.commentInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #4285f4;
+}
+
+.commentSubmit {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.commentSubmit:hover {
+  background-color: #3367d6;
+}
+
+/* Project card overlay styling */
+.projectCardOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
+  color: #333;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.noResults {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.1rem;
+  color: #666;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .phProjectsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .categoryItems {
+    max-width: 90vw;
+    overflow-y: auto;
+    max-height: 300px;
+  }
+
+  .phProjectHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .phProjectMeta {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .phProjectStats {
+    justify-content: center;
+  }
+
+  .commentForm {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .phProjectsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .phProjectsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+@media (min-width: 1600px) {
+  .phProjectsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
