@@ -13,7 +13,7 @@ const config: Config = {
   tagline: 'Open Source Insight',
   favicon: 'img/logo/ant-opensource.png',
   url: 'https://antgroup.github.io',
-  baseUrl: `${GITHUB_PAGES_URL_PATH}/interactive-landscape/`,
+  baseUrl: `${GITHUB_PAGES_URL_PATH}`,
   organizationName: 'antgroup',
   projectName: 'antoss-landscape',
   deploymentBranch: 'gh-pages',
