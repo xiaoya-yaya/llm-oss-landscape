@@ -3,22 +3,58 @@ import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import { Project } from '../components/InteractiveLandscape/types';
 import styles from '../components/InteractiveLandscape/styles.module.css';
-import { formatNumber, getLanguageColor } from '../components/InteractiveLandscape/utils';
+import { formatNumber } from '../components/InteractiveLandscape/utils';
 import { ckClient } from '../utils/clickhouseUtils';
 import { useHistory, useLocation } from '@docusaurus/router';
 import { GITHUB_HEADERS } from '../utils/constant';
 
 import {
   ComposedChart,
-  Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   Area
 } from 'recharts';
-// import SimpleECharts from '../components/SimpleECharts';
+
+
+// GitHub API 缓存工具函数 - 缓存 12 小时
+const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 小时
+const githubApiCache = new Map<string, { data: any; timestamp: number }>();
+
+const fetchWithCache = async (url: string, options?: RequestInit): Promise<Response> => {
+  const cacheKey = url;
+
+  // 检查缓存
+  const cached = githubApiCache.get(cacheKey);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    console.log(`[Cache] Using cached data for: ${url}`);
+    // 返回一个模拟的 Response 对象
+    const response = new Response(JSON.stringify(cached.data), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return response;
+  }
+
+  // 发起实际请求
+  const response = await fetch(url, options);
+
+  if (response.ok) {
+    const data = await response.json();
+    // 存入缓存
+    githubApiCache.set(cacheKey, { data, timestamp: Date.now() });
+    console.log(`[Cache] Cached data for: ${url}`);
+
+    // 返回新的 Response 对象
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  return response;
+};
 
 
 // 简单的 Markdown 渲染组件
@@ -218,11 +254,10 @@ export default function ProjectDetail(): JSX.Element {
   const [openrankCurYear, setOpenrankCurYear] = useState(0);
   const [forks, setForks] = useState(0);
   const [stars, setStars] = useState(0);
+  const [created_at, setCreated_at] = useState('');
   const [releases, setReleases] = useState<Release[]>([]);
   const [feature, setFeature] = useState<any[]>([]);
   const [openrankData, setOpenrankData] = useState<{ date: string; value: number }[]>([]);
-  const [llmAnalysis, setLlmAnalysis] = useState<string>('');
-  const [loadingAnalysis, setLoadingAnalysis] = useState(false);
 
   const [loadingContributors, setLoadingContributors] = useState(false);
 
@@ -246,7 +281,7 @@ export default function ProjectDetail(): JSX.Element {
     const fetchProjectGithubInfo = async (repoName: string) => {
       if (!repoName) return;
       try {
-        const response = await fetch(
+        const response = await fetchWithCache(
             `https://api.github.com/repos/${repoName}`,
             {
               headers: GITHUB_HEADERS
@@ -258,6 +293,7 @@ export default function ProjectDetail(): JSX.Element {
 
         const data = await response.json();
         setForks(data.forks_count);
+        setCreated_at(data.created_at);
         setStars(data.stargazers_count);
       } catch (error) {
         console.error(`Failed to fetch GitHub info for ${repoName}:`, error);
@@ -271,7 +307,7 @@ export default function ProjectDetail(): JSX.Element {
         sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
 
-        const response = await fetch(
+        const response = await fetchWithCache(
             `https://api.github.com/repos/${repoName}/releases?per_page=50`,
             {
               headers: GITHUB_HEADERS
@@ -317,7 +353,7 @@ export default function ProjectDetail(): JSX.Element {
         const contributorsWithDetails = await Promise.all(
           (data as Contributor[]).map(async (contributor) => {
             try {
-              const response = await fetch(`https://api.github.com/users/${contributor.actor_login}`,    {
+              const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`,    {
                 headers: GITHUB_HEADERS
               });
               if (response.ok) {
@@ -398,6 +434,19 @@ export default function ProjectDetail(): JSX.Element {
 
   const formatDate = (dateString: string) => {
     if (!dateString) return 'Unknown';
+
+    // 处理 ISO 8601 格式: 2021-04-29T02:57:53Z
+    if (dateString.includes('T')) {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Unknown';
+      const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      ];
+      return `${months[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
+    }
+
+    // 处理 yyyy/mm/dd 格式
     const [year, month, day] = dateString.split('/');
     const months = [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -509,7 +558,7 @@ export default function ProjectDetail(): JSX.Element {
 
               <div className={styles.metricItem}>
                 <div className={styles.metricIcon}>🗓️</div>
-                <div className={styles.metricValue}>{formatDate(project.created_at)}</div>
+                <div className={styles.metricValue}>{formatDate(created_at)}</div>
                 <div className={styles.metricLabel}>Created</div>
               </div>
             </div>
