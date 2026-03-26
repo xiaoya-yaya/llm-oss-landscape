@@ -95,12 +95,12 @@ const config: Config = {
         logo: {
           alt: 'Logo',
           src: 'img/logo/ant-opensource.png',
-          href: '/interactive-landscape',
+          href: '/index',
         },
         hideOnScroll: true,
         items: [
           {
-            to: '/interactive-landscape',
+            to: '/index',
             label: 'Dashboards',
             position: 'left',
           },
