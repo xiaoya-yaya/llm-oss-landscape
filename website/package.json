@@ -23,7 +23,6 @@
     "@mdx-js/react": "^3.0.1",
     "@tanstack/react-table": "^8.19.2",
     "ahooks": "^3.8.1",
-    "openai": "6.32.0",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "docusaurus-plugin-image-zoom": "^2.0.0",
