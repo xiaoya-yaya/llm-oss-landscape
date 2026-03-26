@@ -112,11 +112,33 @@
   border-radius: 12px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 700px;
-  max-height: 90vh;
+  max-width: 900px;
+  max-height: none;
+  height: 100%;
+  min-height: calc(100vh - 40px);
   overflow-y: auto;
   position: relative;
   animation: cardEnter 0.3s ease;
+  margin: 0 auto;
+}
+
+.backButton {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #f1f3f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  z-index: 10;
+  transition: background-color 0.2s;
+}
+
+.backButton:hover {
+  background-color: #e9ecef;
 }
 
 @keyframes cardEnter {
@@ -150,6 +172,7 @@
 .cardHeader {
   display: flex;
   padding: 25px;
+  padding-top: 75px; /* 为 Back 按钮留出空间 */
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-bottom: 1px solid #eee;
 }
@@ -171,6 +194,40 @@
 
 .cardTitleSection {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.titleMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.languageContainer {
+  flex-shrink: 0;
+}
+
+.descriptionRow {
+  margin-top: 4px;
+}
+
+.headerDescription {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .cardTitle {
@@ -188,6 +245,7 @@
 .classification {
   display: inline-block;
   padding: 4px 8px;
+  margin-left: 5px;
   background-color: #4285f4;
   color: white;
   border-radius: 50px;
@@ -302,6 +360,156 @@
   text-decoration: none;
 }
 
+/* Contributors Section */
+.contributorsSection {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 80px;
+}
+
+.contributorsSection h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.contributorHeader {
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  background-color: #f8f9fa;
+  border-radius: 6px 6px 0 0;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #666;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.contributorHeaderRank {
+  width: 28px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.contributorHeaderInfo {
+  flex: 20;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+.contributorHeaderMeta {
+  flex: 2;
+  min-width: 400px;
+  max-width: 400px;
+  padding: 0 12px 0 50px;
+}
+
+.contributorHeaderOpenrank {
+  margin-left: auto;
+  flex-shrink: 0;
+  min-width: 60px;
+  text-align: right;
+}
+
+.contributorItem:last-child {
+  border-bottom: none;
+}
+
+
+.contributorLink {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contributorLink:hover {
+  color: #4285f4;
+  text-decoration: underline;
+}
+
+
+/* 贡献者详细信息样式 */
+.contributorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+/* 贡献者列表样式，！！！！！！！！！！！！！！！！ */
+.contributorList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contributorItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.contributorRank {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f3f5;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.contributorInfo {
+  flex: 20;
+  min-width: 400px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+.contributorMeta {
+  flex: 2;
+  min-width: 400px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 12px;
+}
+.contributorOpenrank {
+  color: #777;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-left: auto;
+  flex-shrink: 0;
+  min-width: 60px;
+  text-align: right;
+}
+
+.contributorBio {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contributorMetaItem {
+  font-size: 0.75rem;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Project Grid */
 .projectGrid {
   display: grid;
@@ -345,4 +553,324 @@
   .metricItem {
     min-width: calc(50% - 10px);
   }
+}
+
+/* Features Section */
+.featuresSection {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.featuresSection h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #4285f4;
+}
+
+.featureBullet {
+  color: #4285f4;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.featureText {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Releases Section */
+.releasesSection {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.releasesSection h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* OpenRank Chart Section */
+.openrankChartSection {
+  height: 400px;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.openrankChartSection h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.releaseTimeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.releaseCard {
+  display: flex;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.releaseTimelineConnector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.releaseTimelineDot {
+  width: 12px;
+  height: 12px;
+  background-color: #4285f4;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #4285f4;
+  z-index: 1;
+}
+
+.releaseTimelineLine {
+  width: 2px;
+  flex: 1;
+  background-color: #e9ecef;
+  min-height: 30px;
+}
+
+.releaseCardContent {
+  flex: 1;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.releaseCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.releaseVersion {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #4285f4;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.releaseVersion:hover {
+  background-color: #3367d6;
+  text-decoration: none;
+}
+
+.releaseDate {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.releaseTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.releaseAuthor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.releaseAuthorAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.releaseBody {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.releaseBodyItem {
+  font-size: 0.8rem;
+  color: #555;
+  padding: 3px 0;
+  line-height: 1.4;
+}
+
+.releaseBodyItem::before {
+  content: "•";
+  color: #4285f4;
+  margin-right: 6px;
+}
+
+/* Feature Summary Card */
+.featureSummaryCard {
+  background: linear-gradient(135deg, #bac2e7 0%, #c2bed5 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px;
+  color: white;
+}
+
+.featureSummaryHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.featureSummaryIcon {
+  font-size: 1.2rem;
+}
+
+.featureSummaryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureSummaryItem {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  padding: 6px 0;
+  padding-left: 18px;
+  position: relative;
+}
+
+.featureSummaryItem::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Markdown Content Styles */
+.markdownContent {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.markdownContent .markdownParagraph {
+  margin: 0;
+  padding: 3px 0;
+}
+
+.markdownContent .markdownListItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 2px 0;
+}
+
+.markdownContent .markdownBullet {
+  color: #4285f4;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.markdownContent .markdownH2,
+.markdownContent .markdownH3,
+.markdownContent .markdownH4 {
+  margin: 10px 0 5px 0;
+  color: #333;
+}
+
+.markdownContent .markdownH2 {
+  font-size: 1rem;
+}
+
+.markdownContent .markdownH3 {
+  font-size: 0.95rem;
+}
+
+.markdownContent .markdownH4 {
+  font-size: 0.9rem;
+}
+
+.markdownContent .markdownCodeBlock {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 10px;
+  overflow-x: auto;
+  margin: 5px 0;
+  font-size: 0.8rem;
+}
+
+.markdownContent .markdownCodeBlock code {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.markdownContent .markdownInlineCode {
+  background-color: #f0f0f0;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8rem;
+  color: #e83e8c;
+}
+
+.markdownContent .markdownLink {
+  color: #4285f4;
+  text-decoration: none;
+}
+
+.markdownContent .markdownLink:hover {
+  text-decoration: underline;
+}
+
+.markdownContent strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.markdownContent em {
+  font-style: italic;
+}
+
+.markdownContent .markdownEmpty {
+  height: 5px;
 }

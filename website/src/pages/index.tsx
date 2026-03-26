@@ -3,11 +3,11 @@ import { useMemo, useState, useRef } from 'react';
 import Layout from '@theme/Layout';
 // @ts-ignore
 import styles from './interactive-landscape.module.css';
+import { useHistory } from '@docusaurus/router';
 
 // Import components
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import ProjectCard from '../components/InteractiveLandscape/ProjectCard';
 import { Project } from '../components/InteractiveLandscape/types';
 import { formatNumber } from '../components/InteractiveLandscape/utils';
 import useData, { getStaticDataUrl } from '../utils/useData';
@@ -240,6 +240,7 @@ const ProductHuntProjectCard = ({ project, onClick }: { project: Project; onClic
 };
 
 export default function InteractiveLandscape(): JSX.Element {
+    const history = useHistory();
     const [searchTerm, setSearchTerm] = useState('');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [activeCategoryGroup, setActiveCategoryGroup] = useState<string | null>(null);
@@ -320,14 +321,10 @@ export default function InteractiveLandscape(): JSX.Element {
             .concat(groupNames.filter(name => !categoryGroups.some(g => g.name === name)));
     }, [categoriesByGroup]);
 
-    // Handle project selection
+    // Handle project selection - navigate to project detail page
     const handleProjectClick = (project: Project) => {
-        setSelectedProject(project);
-    };
-
-    // Close detailed card
-    const handleCloseCard = () => {
-        setSelectedProject(null);
+        const encodedData = encodeURIComponent(JSON.stringify(project));
+        history.push(`/llm-oss-landscape/project-detail?data=${encodedData}`);
     };
 
     return (
@@ -423,13 +420,6 @@ export default function InteractiveLandscape(): JSX.Element {
                     )}
                 </div>
 
-                {/* Show detailed project card when a project is selected */}
-                {selectedProject && (
-                    <ProjectCard
-                        project={selectedProject}
-                        onClose={handleCloseCard}
-                    />
-                )}
             </DndProvider>
         </Layout>
     );

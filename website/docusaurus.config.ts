@@ -39,6 +39,7 @@ const config: Config = {
     ossBaseUrl: 'https://oss.open-digger.cn/',
     pullNumber: process.env.PULL_NUM,
     imagePath: process.env.PULL_NUM ? `/pull_${process.env.PULL_NUM}/img/` : '/img/',
+    dashscopeApiKey: process.env.DASHSCOPE_API_KEY || '',
   },
 
   presets: [

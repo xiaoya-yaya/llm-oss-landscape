@@ -20,6 +20,7 @@ export interface Project {
   upvotes?: number;               // 点赞数
   downvotes?: number;             // 踩数
   comments?: Comment[];           // 评论
+  tags?: string[];                // 项目标签
 }
 
 export interface Comment {

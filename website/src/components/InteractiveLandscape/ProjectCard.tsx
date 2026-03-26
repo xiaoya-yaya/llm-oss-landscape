@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Project } from './types';
 import styles from './styles.module.css';
 import { formatNumber, getLanguageColor } from './utils';
+import { ckClient } from '../../utils/clickhouseUtils';
+
+interface Contributor {
+  actor_login: string;
+  openrank: number;
+}
 
 interface ProjectCardProps {
   project: Project;
@@ -9,6 +15,9 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClose }) => {
+  const [contributors, setContributors] = useState<Contributor[]>([]);
+  const [loadingContributors, setLoadingContributors] = useState(false);
+
   const formatDate = (dateString: string) => {
     if (!dateString) return 'Unknown';
     const [year, month, day] = dateString.split('/');
@@ -18,6 +27,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClose }) => {
     ];
     return `${months[parseInt(month) - 1]} ${day}, ${year}`;
   };
+
+  useEffect(() => {
+    const fetchContributors = async () => {
+      setLoadingContributors(true);
+      const repoName = project.repo_name;
+      const sql = `SELECT actor_login, SUM(openrank) AS openrank
+        FROM opensource.community_openrank
+        WHERE repo_name = '${repoName}'
+        and actor_login not like '%bot'
+        and actor_login not like '%[bot]'
+        and actor_id !=0
+        GROUP BY actor_login
+        ORDER BY openrank DESC
+        LIMIT 10`;
+      const data = await ckClient.query(sql, 'topNcontributors');
+      if (data) {
+        setContributors(data as Contributor[]);
+      }
+      setLoadingContributors(false);
+    };
+
+    fetchContributors();
+  }, [project.repo_name]);
 
   return (
     <div className={styles.projectCardOverlay}>
@@ -105,6 +137,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClose }) => {
               </svg>
               please View on GitHub
             </a>
+          </div>
+
+          <div className={styles.contributorsSection}>
+            <h3>Top 10 Contributors</h3>
+            {loadingContributors ? (
+              <p>Loading contributors...</p>
+            ) : contributors.length > 0 ? (
+              <ul className={styles.contributorList}>
+                {contributors.map((contributor, index) => (
+                  <li key={index} className={styles.contributorItem}>
+                    <span className={styles.contributorRank}>{index + 1}</span>
+                    <a
+                      href={`https://github.com/${contributor.actor_login}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.contributorLink}
+                    >
+                      {contributor.actor_login}
+                    </a>
+                    <span className={styles.contributorOpenrank}>
+                      {formatNumber(contributor.openrank)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No contributor data available</p>
+            )}
           </div>
         </div>
       </div>

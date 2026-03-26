@@ -5,6 +5,8 @@ interface FetchDataOptions {
     type: 'json' | 'csv';
 }
 
+
+
 async function fetchData<T = any>(options: FetchDataOptions): Promise<T> {
     const { url, type } = options;
 

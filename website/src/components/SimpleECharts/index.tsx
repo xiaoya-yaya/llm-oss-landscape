@@ -80,6 +80,16 @@ export default (props: any): JSX.Element => {
               defaultOption.yAxis = axisStyle();
             }
           } else if (s.type === 'line') {
+            // 为 line 图表添加默认 grid 配置
+            if (!defaultOption.grid) {
+              defaultOption.grid = {
+                left: '10%',
+                right: '10%',
+                bottom: '15%',
+                top: '15%',
+                containLabel: true,
+              };
+            }
             if (count < lineColors.length && !s.itemStyle?.color) {
               defaultOption.series.push({
                 itemStyle: { color: lineColors[count] },

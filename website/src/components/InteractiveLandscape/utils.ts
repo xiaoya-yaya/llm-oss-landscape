@@ -35,7 +35,7 @@ export const getLanguageColor = (language: string): string => {
  */
 export const formatNumber = (num: number | string): string => {
   // 将输入值转换为数字
-  const numericValue = typeof num === 'string' ? parseFloat(num) : num;
+  const numericValue = typeof num === 'string' ? parseFloat(num).toFixed(1) : num.toFixed(1);
 
   if (numericValue >= 1_000_000) {
     return (numericValue / 1_000_000).toFixed(1) + 'M';
@@ -44,7 +44,7 @@ export const formatNumber = (num: number | string): string => {
   }
 
   // 返回原始值的字符串表示
-  return num.toString();
+  return numericValue.toString();
 };
 
 /**
