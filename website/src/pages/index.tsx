@@ -323,8 +323,7 @@ export default function InteractiveLandscape(): JSX.Element {
 
     // Handle project selection - navigate to project detail page
     const handleProjectClick = (project: Project) => {
-        const encodedData = encodeURIComponent(JSON.stringify(project));
-        history.push(`/llm-oss-landscape/project-detail?data=${encodedData}`);
+        history.push(`/llm-oss-landscape/project-detail?repo_name=${project.repo_name}&language=${project.language}&classification=${project.classification}`);
     };
 
     return (

@@ -18,243 +18,14 @@ import {
 } from 'recharts';
 
 
-// GitHub API 缓存工具函数 - 缓存 12 小时
-const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 小时
-const githubApiCache = new Map<string, { data: any; timestamp: number }>();
-
-const fetchWithCache = async (url: string, options?: RequestInit): Promise<Response> => {
-  const cacheKey = url;
-
-  // 检查缓存
-  const cached = githubApiCache.get(cacheKey);
-  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-    console.log(`[Cache] Using cached data for: ${url}`);
-    // 返回一个模拟的 Response 对象
-    const response = new Response(JSON.stringify(cached.data), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-    return response;
-  }
-
-  // 发起实际请求
-  const response = await fetch(url, options);
-
-  if (response.ok) {
-    const data = await response.json();
-    // 存入缓存
-    githubApiCache.set(cacheKey, { data, timestamp: Date.now() });
-    console.log(`[Cache] Cached data for: ${url}`);
-
-    // 返回新的 Response 对象
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-  }
-
-  return response;
-};
-
-
-// 简单的 Markdown 渲染组件
-const MarkdownContent: React.FC<{ content: string }> = ({ content }) => {
-  const renderMarkdown = (text: string) => {
-    const lines = text.split('\n');
-    const elements: JSX.Element[] = [];
-    let inCodeBlock = false;
-    let codeContent = '';
-    let codeLanguage = '';
-
-    lines.forEach((line, index) => {
-      // 代码块
-      if (line.startsWith('```')) {
-        if (inCodeBlock) {
-          elements.push(
-            <pre key={`code-${index}`} className={styles.markdownCodeBlock}>
-              <code>{codeContent.trim()}</code>
-            </pre>
-          );
-          codeContent = '';
-          inCodeBlock = false;
-        } else {
-          inCodeBlock = true;
-          codeLanguage = line.slice(3);
-        }
-        return;
-      }
-
-      if (inCodeBlock) {
-        codeContent += line + '\n';
-        return;
-      }
-
-      // 标题
-      if (line.startsWith('### ')) {
-        elements.push(<h4 key={index} className={styles.markdownH4}>{line.slice(4)}</h4>);
-        return;
-      }
-      if (line.startsWith('## ')) {
-        elements.push(<h3 key={index} className={styles.markdownH3}>{line.slice(3)}</h3>);
-        return;
-      }
-      if (line.startsWith('# ')) {
-        elements.push(<h2 key={index} className={styles.markdownH2}>{line.slice(2)}</h2>);
-        return;
-      }
-
-      // 列表项
-      const trimmed = line.trim();
-      if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('• ')) {
-        const content = renderInlineMarkdown(trimmed.slice(2));
-        elements.push(<div key={index} className={styles.markdownListItem}><span className={styles.markdownBullet}>•</span>{content}</div>);
-        return;
-      }
-
-      // 空行
-      if (trimmed === '') {
-        elements.push(<div key={index} className={styles.markdownEmpty}></div>);
-        return;
-      }
-
-      // 普通段落
-      elements.push(<p key={index} className={styles.markdownParagraph}>{renderInlineMarkdown(trimmed)}</p>);
-    });
-
-    return elements;
-  };
-
-  const renderInlineMarkdown = (text: string) => {
-    // 处理行内代码 `code`
-    let parts = text.split(/(`[^`]+`)/);
-    return parts.map((part, i) => {
-      if (part.startsWith('`') && part.endsWith('`')) {
-        return <code key={i} className={styles.markdownInlineCode}>{part.slice(1, -1)}</code>;
-      }
-      
-      // 处理 bold **text**
-      let boldParts = part.split(/(\*\*[^*]+\*\*)/);
-      return boldParts.map((bp, j) => {
-        if (bp.startsWith('**') && bp.endsWith('**')) {
-          return <strong key={`${i}-${j}`}>{bp.slice(2, -2)}</strong>;
-        }
-        
-        // 处理 italic *text*
-        let italicParts = bp.split(/(\*[^*]+\*)/);
-        return italicParts.map((ip, k) => {
-          if (ip.startsWith('*') && ip.endsWith('*') && !ip.startsWith('**')) {
-            return <em key={`${i}-${j}-${k}`}>{ip.slice(1, -1)}</em>;
-          }
-          
-          // 处理链接 [text](url)
-          let linkParts = ip.split(/(\[[^\]]+\]\([^)]+\))/);
-          return linkParts.map((lp, m) => {
-            const linkMatch = lp.match(/\[([^\]]+)\]\(([^)]+)\)/);
-            if (linkMatch) {
-              return <a key={`${i}-${j}-${k}-${m}`} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className={styles.markdownLink}>{linkMatch[1]}</a>;
-            }
-            return lp;
-          });
-        });
-      });
-    });
-  };
-
-  return <div className={styles.markdownContent}>{renderMarkdown(content)}</div>;
-};
-
-
-interface Contributor {
-  actor_login: string;
-  actor_id: number;
-  openrank: number;
-  // GitHub 用户详细信息
-  avatar_url?: string;
-  bio?: string;
-  name?: string;
-  location?: string;
-  company?: string;
-}
-
-interface Release {
-  id: number;
-  tag_name: string;
-  name: string;
-  body: string;
-  published_at: string;
-  html_url: string;
-  author: {
-    login: string;
-    avatar_url: string;
-  };
-}
-// 自定义样式
-const fullPageStyles = {
-  container: {
-    minHeight: '100vh',
-    padding: '0px 40px',
-    backgroundColor: '#f5f6f7',
-    overflow: 'hidden',
-  },
-  card: {
-    maxWidth: '100%',
-    width: '100%',
-    height: '100%',
-    maxHeight: 'none',
-    overflow: 'visible',
-  }
-};
-
-
-const extractKeyFeatures = (releases: Release[]): string[] => {
-  const features: string[] = [];
-  const keywords = [
-    'support',
-    'add',
-    'new',
-    'feature',
-    'improve',
-    'optimize',
-    'performance',
-    'fix',
-    'update',
-    'enhance'
-  ];
-
-  releases.slice(0, 5).forEach((release) => {
-    const lines = release.body.split('\n');
-    lines.forEach((line) => {
-      const trimmedLine = line.trim();
-      if (
-          trimmedLine.startsWith('*') ||
-          trimmedLine.startsWith('-') ||
-          trimmedLine.startsWith('•')
-      ) {
-        const content = trimmedLine.substring(1).trim();
-        const lowerContent = content.toLowerCase();
-        if (
-            keywords.some((keyword) => lowerContent.includes(keyword)) &&
-            content.length > 20 &&
-            content.length < 150
-        ) {
-          features.push(content);
-        }
-      }
-    });
-  });
-
-  return features.slice(0, 5);
-};
 export default function ProjectDetail(): JSX.Element {
   const history = useHistory();
   const location = useLocation();
 
   const [project, setProject] = useState<Project | null>(null);
+  const [repoName, setRepoName] = useState<string | null>(null);
   const [contributors, setContributors] = useState<Contributor[]>([]);
   const [openrankCurYear, setOpenrankCurYear] = useState(0);
-  const [forks, setForks] = useState(0);
-  const [stars, setStars] = useState(0);
-  const [created_at, setCreated_at] = useState('');
   const [releases, setReleases] = useState<Release[]>([]);
   const [feature, setFeature] = useState<any[]>([]);
   const [openrankData, setOpenrankData] = useState<{ date: string; value: number }[]>([]);
@@ -263,44 +34,30 @@ export default function ProjectDetail(): JSX.Element {
 
   // Parse project data from URL query params
   useEffect(() => {
+
+
     const params = new URLSearchParams(location.search);
-    const projectData = params.get('data');
-    if (projectData) {
+    const repo_name = params.get('repo_name');
+    if (repo_name) {
       try {
-        const decoded = decodeURIComponent(projectData);
-        setProject(JSON.parse(decoded));
+        setRepoName(repo_name);
+        setProject({
+          repo_id: '',
+          repo_name: repo_name,
+          classification: params.get('classification') || '',
+          stars: '0',
+          forks: '0',
+          openrank_25: '',
+          language: params.get('language') || '',
+          created_at: '',
+          description: ''
+        });
       } catch (e) {
         console.error('Failed to parse project data:', e);
       }
     }
-  }, [location.search]);
-
-  // Fetch contributors when project changes
-  useEffect(() => {
-
-    const fetchProjectGithubInfo = async (repoName: string) => {
-      if (!repoName) return;
-      try {
-        const response = await fetchWithCache(
-            `https://api.github.com/repos/${repoName}`,
-            {
-              headers: GITHUB_HEADERS
-            }
-        );
-        if (!response.ok) {
-          throw new Error(`GitHub API error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setForks(data.forks_count);
-        setCreated_at(data.created_at);
-        setStars(data.stargazers_count);
-      } catch (error) {
-        console.error(`Failed to fetch GitHub info for ${repoName}:`, error);
-      }
-    }
     const fetchReleases = async (repoName: string) => {
-      if (!project?.repo_name) return;
+      if (!repoName) return;
 
       try {
         const sixMonthsAgo = new Date();
@@ -333,11 +90,10 @@ export default function ProjectDetail(): JSX.Element {
         return [];
       }
     };
-    const fetchContributors = async () => {
-      if (!project?.repo_name) return;
+    const fetchContributors = async (repoName: string) => {
+      if (!repoName) return;
 
       setLoadingContributors(true);
-      const repoName = project.repo_name;
       const sql = `SELECT actor_login, actor_id, SUM(openrank) AS openrank
         FROM opensource.community_openrank
         WHERE repo_name = '${repoName}'
@@ -351,41 +107,69 @@ export default function ProjectDetail(): JSX.Element {
 
       if (data) {
         const contributorsWithDetails = await Promise.all(
-          (data as Contributor[]).map(async (contributor) => {
-            try {
-              const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`,    {
-                headers: GITHUB_HEADERS
-              });
-              if (response.ok) {
-                const githubUser = await response.json();
-                return {
-                  ...contributor,
-                  actor_id: contributor.actor_id || githubUser.id, // 使用数据库的 actor_id，如果为空则用 GitHub API 的 id
-                  avatar_url: githubUser.avatar_url,
-                  bio: githubUser.bio,
-                  name: githubUser.name,
-                  location: githubUser.location,
-                  company: githubUser.company,
-                };
+            (data as Contributor[]).map(async (contributor) => {
+              try {
+                const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`,    {
+                  headers: GITHUB_HEADERS
+                });
+                if (response.ok) {
+                  const githubUser = await response.json();
+                  return {
+                    ...contributor,
+                    actor_id: contributor.actor_id || githubUser.id, // 使用数据库的 actor_id，如果为空则用 GitHub API 的 id
+                    avatar_url: githubUser.avatar_url,
+                    bio: githubUser.bio,
+                    name: githubUser.name,
+                    location: githubUser.location,
+                    company: githubUser.company,
+                  };
+                }
+              } catch (error) {
+                console.error(`Failed to fetch GitHub user ${contributor.actor_login}:`, error);
               }
-            } catch (error) {
-              console.error(`Failed to fetch GitHub user ${contributor.actor_login}:`, error);
-            }
-            return contributor;
-          })
+              return contributor;
+            })
         );
         setContributors(contributorsWithDetails);
       }
       setLoadingContributors(false);
     };
+    const fetchProjectGithubInfo = async (repoName: string) => {
+      if (!repoName) return;
+      try {
+        const response = await fetchWithCache(
+            `https://api.github.com/repos/${repoName}`,
+            {
+              headers: GITHUB_HEADERS
+            }
+        );
+        if (!response.ok) {
+          throw new Error(`GitHub API error: ${response.status}`);
+        }
 
+        const data = await response.json();
+        setProject({
+          repo_id: '',
+          repo_name: repoName,
+          classification: classification,
+          stars: String(data.stargazers_count),
+          forks: String(data.forks_count),
+          openrank_25: '',
+          language: language,
+          created_at: data.created_at,
+          description: data.description
+        });
+      } catch (error) {
+        console.error(`Failed to fetch GitHub info for ${repoName}:`, error);
+      }
+    }
     // 获取 OpenRank 历史数据
-    const fetchOpenRankData = async () => {
-      if (!project?.repo_name) return;
+    const fetchOpenRankData = async (repoName: string) => {
+      if (!repoName) return;
 
       try {
         const response = await fetch(
-          `https://oss.open-digger.cn/github/${project.repo_name}/openrank.json`
+            `https://oss.open-digger.cn/github/${repoName}/openrank.json`
         );
 
         if (!response.ok) {
@@ -404,12 +188,12 @@ export default function ProjectDetail(): JSX.Element {
         const openrankCurYear = curYearEntry ? curYearEntry[1] : 0;
         setOpenrankCurYear(openrankCurYear);
         const monthlyData = entries
-          .filter((entry) => /^\d{4}-\d{2}$/.test(entry[0]))
-          .map(([date, value]) => ({
-            date,
-            value: value as number
-          }))
-          .sort((a, b) => a.date.localeCompare(b.date));
+            .filter((entry) => /^\d{4}-\d{2}$/.test(entry[0]))
+            .map(([date, value]) => ({
+              date,
+              value: value as number
+            }))
+            .sort((a, b) => a.date.localeCompare(b.date));
 
         // 取最近半年的数据
         const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
@@ -422,15 +206,16 @@ export default function ProjectDetail(): JSX.Element {
         console.log('setOpenrankData', recentData);
         setOpenrankData(recentData);
       } catch (error) {
-        console.error(`Failed to fetch OpenRank data for ${project.repo_name}:`, error);
+        console.error(`Failed to fetch OpenRank data for ${repoName}:`, error);
       }
     };
-    fetchProjectGithubInfo(project?.repo_name);
-    fetchReleases(project?.repo_name);
-    fetchContributors();
-    fetchOpenRankData();
+    fetchProjectGithubInfo(repoName);
+    fetchReleases(repoName);
+    fetchContributors(repoName);
+    fetchOpenRankData(repoName);
+  }, [location.search]);
 
-  }, [project?.repo_name]);
+
 
   const formatDate = (dateString: string) => {
     if (!dateString) return 'Unknown';
@@ -474,11 +259,248 @@ export default function ProjectDetail(): JSX.Element {
     history.push(`/llm-oss-landscape/contributor_detail?data=${encoded}`);
   };
 
+// GitHub API 缓存工具函数 - 缓存 12 小时
+  const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 小时
+  const githubApiCache = new Map<string, { data: any; timestamp: number }>();
+
+// 上次请求时间戳，用于限流
+  let lastRequestTime = 0;
+
+  const fetchWithCache = async (url: string, options?: RequestInit): Promise<Response> => {
+    const cacheKey = url;
+
+    // 检查缓存
+    const cached = githubApiCache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+      console.log(`[Cache] Using cached data for: ${url}`);
+      // 返回一个模拟的 Response 对象
+      const response = new Response(JSON.stringify(cached.data), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+      return response;
+    }
+
+    // 休眠 100ms 避免被限流
+    const now = Date.now();
+    if (now - lastRequestTime < 100) {
+      await new Promise(resolve => setTimeout(resolve, 100 - (now - lastRequestTime)));
+    }
+    lastRequestTime = Date.now();
+
+    // 发起实际请求
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      const data = await response.json();
+      // 存入缓存
+      githubApiCache.set(cacheKey, { data, timestamp: Date.now() });
+      console.log(`[Cache] Cached data for: ${url}`);
+
+      // 返回新的 Response 对象
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    return response;
+  };
+
+
+// 简单的 Markdown 渲染组件
+  const MarkdownContent: React.FC<{ content: string }> = ({ content }) => {
+    const renderMarkdown = (text: string) => {
+      const lines = text.split('\n');
+      const elements: JSX.Element[] = [];
+      let inCodeBlock = false;
+      let codeContent = '';
+      let codeLanguage = '';
+
+      lines.forEach((line, index) => {
+        // 代码块
+        if (line.startsWith('```')) {
+          if (inCodeBlock) {
+            elements.push(
+                <pre key={`code-${index}`} className={styles.markdownCodeBlock}>
+              <code>{codeContent.trim()}</code>
+            </pre>
+            );
+            codeContent = '';
+            inCodeBlock = false;
+          } else {
+            inCodeBlock = true;
+            codeLanguage = line.slice(3);
+          }
+          return;
+        }
+
+        if (inCodeBlock) {
+          codeContent += line + '\n';
+          return;
+        }
+
+        // 标题
+        if (line.startsWith('### ')) {
+          elements.push(<h4 key={index} className={styles.markdownH4}>{line.slice(4)}</h4>);
+          return;
+        }
+        if (line.startsWith('## ')) {
+          elements.push(<h3 key={index} className={styles.markdownH3}>{line.slice(3)}</h3>);
+          return;
+        }
+        if (line.startsWith('# ')) {
+          elements.push(<h2 key={index} className={styles.markdownH2}>{line.slice(2)}</h2>);
+          return;
+        }
+
+        // 列表项
+        const trimmed = line.trim();
+        if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('• ')) {
+          const content = renderInlineMarkdown(trimmed.slice(2));
+          elements.push(<div key={index} className={styles.markdownListItem}><span className={styles.markdownBullet}>•</span>{content}</div>);
+          return;
+        }
+
+        // 空行
+        if (trimmed === '') {
+          elements.push(<div key={index} className={styles.markdownEmpty}></div>);
+          return;
+        }
+
+        // 普通段落
+        elements.push(<p key={index} className={styles.markdownParagraph}>{renderInlineMarkdown(trimmed)}</p>);
+      });
+
+      return elements;
+    };
+
+    const renderInlineMarkdown = (text: string) => {
+      // 处理行内代码 `code`
+      let parts = text.split(/(`[^`]+`)/);
+      return parts.map((part, i) => {
+        if (part.startsWith('`') && part.endsWith('`')) {
+          return <code key={i} className={styles.markdownInlineCode}>{part.slice(1, -1)}</code>;
+        }
+
+        // 处理 bold **text**
+        let boldParts = part.split(/(\*\*[^*]+\*\*)/);
+        return boldParts.map((bp, j) => {
+          if (bp.startsWith('**') && bp.endsWith('**')) {
+            return <strong key={`${i}-${j}`}>{bp.slice(2, -2)}</strong>;
+          }
+
+          // 处理 italic *text*
+          let italicParts = bp.split(/(\*[^*]+\*)/);
+          return italicParts.map((ip, k) => {
+            if (ip.startsWith('*') && ip.endsWith('*') && !ip.startsWith('**')) {
+              return <em key={`${i}-${j}-${k}`}>{ip.slice(1, -1)}</em>;
+            }
+
+            // 处理链接 [text](url)
+            let linkParts = ip.split(/(\[[^\]]+\]\([^)]+\))/);
+            return linkParts.map((lp, m) => {
+              const linkMatch = lp.match(/\[([^\]]+)\]\(([^)]+)\)/);
+              if (linkMatch) {
+                return <a key={`${i}-${j}-${k}-${m}`} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className={styles.markdownLink}>{linkMatch[1]}</a>;
+              }
+              return lp;
+            });
+          });
+        });
+      });
+    };
+
+    return <div className={styles.markdownContent}>{renderMarkdown(content)}</div>;
+  };
+
+
+  interface Contributor {
+    actor_login: string;
+    actor_id: number;
+    openrank: number;
+    // GitHub 用户详细信息
+    avatar_url?: string;
+    bio?: string;
+    name?: string;
+    location?: string;
+    company?: string;
+  }
+
+  interface Release {
+    id: number;
+    tag_name: string;
+    name: string;
+    body: string;
+    published_at: string;
+    html_url: string;
+    author: {
+      login: string;
+      avatar_url: string;
+    };
+  }
+// 自定义样式
+  const fullPageStyles = {
+    container: {
+      minHeight: '100vh',
+      padding: '0px 40px',
+      backgroundColor: '#f5f6f7',
+      overflow: 'hidden',
+    },
+    card: {
+      maxWidth: '100%',
+      width: '100%',
+      height: '100%',
+      maxHeight: 'none',
+      overflow: 'visible',
+    }
+  };
+
+
+  const extractKeyFeatures = (releases: Release[]): string[] => {
+    const features: string[] = [];
+    const keywords = [
+      'support',
+      'add',
+      'new',
+      'feature',
+      'improve',
+      'optimize',
+      'performance',
+      'fix',
+      'update',
+      'enhance'
+    ];
+
+    releases.slice(0, 5).forEach((release) => {
+      const lines = release.body.split('\n');
+      lines.forEach((line) => {
+        const trimmedLine = line.trim();
+        if (
+            trimmedLine.startsWith('*') ||
+            trimmedLine.startsWith('-') ||
+            trimmedLine.startsWith('•')
+        ) {
+          const content = trimmedLine.substring(1).trim();
+          const lowerContent = content.toLowerCase();
+          if (
+              keywords.some((keyword) => lowerContent.includes(keyword)) &&
+              content.length > 20 &&
+              content.length < 150
+          ) {
+            features.push(content);
+          }
+        }
+      });
+    });
+
+    return features.slice(0, 5);
+  };
   if (!project) {
     return (
       <Layout title="Project Not Found">
         <div style={{ padding: '40px', textAlign: 'center' }}>
-          <h1>Project Not Found</h1>
+          <h1>Loading...</h1>
           <button onClick={handleBack} style={{
             padding: '10px 20px',
             fontSize: '16px',
@@ -495,10 +517,10 @@ export default function ProjectDetail(): JSX.Element {
     );
   }
 
-  const orgName = project.repo_name.split('/')[0];
+  const orgName = repoName.split('/')[0];
 
   return (
-    <Layout title={project.repo_name}>
+    <Layout title={repoName}>
       <div style={fullPageStyles.container as any}>
         <div style={fullPageStyles.card as any} className={styles.projectCard}>
           <button className={styles.backButton} onClick={handleBack}>
@@ -509,7 +531,7 @@ export default function ProjectDetail(): JSX.Element {
             <div className={styles.cardLogoContainer}>
               <img
                   src={`https://github.com/${orgName}.png`}
-                  alt={`${project.repo_name} logo`}
+                  alt={`${repoName} logo`}
                   className={styles.projectLogo}
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "https://github.com/github.png";
@@ -520,11 +542,11 @@ export default function ProjectDetail(): JSX.Element {
             <div className={styles.cardTitleSection}>
               <div className={styles.titleRow}>
                 <div className={styles.titleMain}>
-                  <a href={`https://github.com/${project.repo_name}`} target="_blank" rel="noopener noreferrer"
+                  <a href={`https://github.com/${repoName}`} target="_blank" rel="noopener noreferrer"
                      style={{textDecoration: 'none', color: 'inherit'}}>
-                    <h2 className={styles.cardTitle}>{project.repo_name}</h2>
+                    <h2 className={styles.cardTitle}>{repoName}</h2>
                   </a>
-                  <p className={styles.cardSubtitle}>{project.repo_name}</p>
+                  <p className={styles.cardSubtitle}>{repoName}</p>
                   <div className={styles.classification}>{project.classification}</div>
                   <div className={styles.classification}>{project.language}</div>
                 </div>
@@ -540,13 +562,13 @@ export default function ProjectDetail(): JSX.Element {
             <div className={styles.metricsContainer}>
               <div className={styles.metricItem}>
                 <div className={styles.metricIcon}>⭐</div>
-                <div className={styles.metricValue}>{formatNumber(forks)}</div>
+                <div className={styles.metricValue}>{formatNumber(project.forks)}</div>
                 <div className={styles.metricLabel}>Stars</div>
               </div>
 
               <div className={styles.metricItem}>
                 <div className={styles.metricIcon}>🔱</div>
-                <div className={styles.metricValue}>{formatNumber(stars)}</div>
+                <div className={styles.metricValue}>{formatNumber(project.stars)}</div>
                 <div className={styles.metricLabel}>Forks</div>
               </div>
 
@@ -558,7 +580,7 @@ export default function ProjectDetail(): JSX.Element {
 
               <div className={styles.metricItem}>
                 <div className={styles.metricIcon}>🗓️</div>
-                <div className={styles.metricValue}>{formatDate(created_at)}</div>
+                <div className={styles.metricValue}>{formatDate(project.created_at)}</div>
                 <div className={styles.metricLabel}>Created</div>
               </div>
             </div>
