@@ -1,5 +1,5 @@
 // GitHub API Token
-export const GITHUB_TOKEN = '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';
+export const GITHUB_TOKEN = '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';
 
 // GitHub API Headers
 export const GITHUB_HEADERS = {
