@@ -289,7 +289,7 @@ export default function ProjectDetail(): JSX.Element {
     const response = await fetch(url, {
       headers: {
         Accept: 'application/vnd.github.v3+json'
-        // ,Authorization: `Bearer ${GITHUB_TOKEN}`
+        ,Authorization: `Bearer ${GITHUB_TOKEN}`
       }
     });
 
