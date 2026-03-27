@@ -6,7 +6,7 @@ import styles from '../components/InteractiveLandscape/styles.module.css';
 import { formatNumber } from '../components/InteractiveLandscape/utils';
 import { ckClient } from '../utils/clickhouseUtils';
 import { useHistory, useLocation } from '@docusaurus/router';
-import { GITHUB_HEADERS } from '../utils/constant';
+import {GITHUB_HEADERS, GITHUB_TOKEN} from '../utils/constant';
 
 import {
   ComposedChart,
@@ -65,10 +65,7 @@ export default function ProjectDetail(): JSX.Element {
 
 
         const response = await fetchWithCache(
-            `https://api.github.com/repos/${repoName}/releases?per_page=50`,
-            {
-              headers: GITHUB_HEADERS
-            }
+            `https://api.github.com/repos/${repoName}/releases?per_page=50`
         );
 
         if (!response.ok) {
@@ -109,9 +106,7 @@ export default function ProjectDetail(): JSX.Element {
         const contributorsWithDetails = await Promise.all(
             (data as Contributor[]).map(async (contributor) => {
               try {
-                const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`,    {
-                  headers: GITHUB_HEADERS
-                });
+                const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`);
                 if (response.ok) {
                   const githubUser = await response.json();
                   return {
@@ -135,27 +130,29 @@ export default function ProjectDetail(): JSX.Element {
       setLoadingContributors(false);
     };
     const fetchProjectGithubInfo = async (repoName: string) => {
+      console.log("repo："+repoName);
+
       if (!repoName) return;
       try {
+        console.log("begin to fetch："+repoName);
+
         const response = await fetchWithCache(
-            `https://api.github.com/repos/${repoName}`,
-            {
-              headers: GITHUB_HEADERS
-            }
+            `https://api.github.com/repos/${repoName}`
         );
         if (!response.ok) {
           throw new Error(`GitHub API error: ${response.status}`);
         }
 
         const data = await response.json();
+        console.log('重新设置:',data);
         setProject({
           repo_id: '',
           repo_name: repoName,
-          classification: classification,
+          classification: params.get('classification'),
           stars: String(data.stargazers_count),
           forks: String(data.forks_count),
           openrank_25: '',
-          language: language,
+          language: params.get('language'),
           created_at: data.created_at,
           description: data.description
         });
@@ -209,10 +206,10 @@ export default function ProjectDetail(): JSX.Element {
         console.error(`Failed to fetch OpenRank data for ${repoName}:`, error);
       }
     };
-    fetchProjectGithubInfo(repoName);
-    fetchReleases(repoName);
-    fetchContributors(repoName);
-    fetchOpenRankData(repoName);
+    fetchProjectGithubInfo(repo_name);
+    fetchReleases(repo_name);
+    fetchContributors(repo_name);
+    fetchOpenRankData(repo_name);
   }, [location.search]);
 
 
@@ -266,7 +263,7 @@ export default function ProjectDetail(): JSX.Element {
 // 上次请求时间戳，用于限流
   let lastRequestTime = 0;
 
-  const fetchWithCache = async (url: string, options?: RequestInit): Promise<Response> => {
+  const fetchWithCache = async (url: string): Promise<Response> => {
     const cacheKey = url;
 
     // 检查缓存
@@ -289,7 +286,12 @@ export default function ProjectDetail(): JSX.Element {
     lastRequestTime = Date.now();
 
     // 发起实际请求
-    const response = await fetch(url, options);
+    const response = await fetch(url, {
+      headers: {
+        Accept: 'application/vnd.github.v3+json'
+        // ,Authorization: `Bearer ${GITHUB_TOKEN}`
+      }
+    });
 
     if (response.ok) {
       const data = await response.json();
