@@ -330,108 +330,108 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
           <div style={{
             background: 'white',
             borderRadius: '12px',
-            padding: '30px',
+            padding: '16px',
             marginBottom: '20px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
-            <h2 style={{ margin: '0 0 24px 0', fontSize: '20px', color: '#1a1a1a' }}>
+            <h2 style={{ margin: '0 0 12px 0', fontSize: '16px', color: '#1a1a1a' }}>
               活跃度统计 Overview
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '20px'
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              gap: '10px'
             }}>
               <div style={{
                 background: '#f8f9fa',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600', color: '#4285f4' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#4285f4' }}>
                   {formatNumber(contributor.totalIssues)}
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                  提交 Issue 总数
+                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  提交 Issue
                 </div>
               </div>
               <div style={{
                 background: '#f8f9fa',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600', color: '#34a853' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#34a853' }}>
                   {formatNumber(contributor.participatedIssuePR)}
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                  参与 Issue/PR 总数
+                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  参与 Issue/PR
                 </div>
               </div>
               <div style={{
                 background: '#f8f9fa',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600', color: '#fbbc04' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#fbbc04' }}>
                   {formatNumber(contributor.totalPRs)}
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                  提交 PR 总数
+                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  提交 PR
                 </div>
               </div>
               <div style={{
                 background: '#f8f9fa',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600', color: '#fa7b17' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#fa7b17' }}>
                   {formatNumber(contributor.mergedPRs)}
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                  合入 PR 总数
+                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  合入 PR
                 </div>
               </div>
               <div style={{
                 background: '#f8f9fa',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600', color: '#9334e6' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#9334e6' }}>
                   {formatNumber(contributor.prReviews)}
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                  PR 评审总数
+                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  PR 评审
                 </div>
               </div>
               <div style={{
                 background: '#f8f9fa',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600', color: '#ea4335' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600', color: '#ea4335' }}>
                   {formatNumber(contributor.codeChanges)}
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
-                  合入代码变更总数
+                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  代码变更
                 </div>
               </div>
               <div style={{
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                borderRadius: '8px',
-                padding: '20px',
+                borderRadius: '6px',
+                padding: '12px 6px',
                 textAlign: 'center',
                 color: 'white'
               }}>
-                <div style={{ fontSize: '32px', fontWeight: '600' }}>
+                <div style={{ fontSize: '18px', fontWeight: '600' }}>
                   {formatNumber(contributor.totalOpenrank)}
                 </div>
-                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '8px' }}>
-                  OpenRank 贡献度总数
+                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                  OpenRank
                 </div>
               </div>
             </div>
