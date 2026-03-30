@@ -103,30 +103,32 @@ export default function ProjectDetail(): JSX.Element {
       const data = await ckClient.query(sql, 'topNcontributors');
 
       if (data) {
-        const contributorsWithDetails = await Promise.all(
-            (data as Contributor[]).map(async (contributor) => {
-              try {
-                const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`);
-                if (response.ok) {
-                  const githubUser = await response.json();
-                  return {
-                    ...contributor,
-                    actor_id: contributor.actor_id || githubUser.id, // 使用数据库的 actor_id，如果为空则用 GitHub API 的 id
-                    avatar_url: githubUser.avatar_url,
-                    bio: githubUser.bio,
-                    name: githubUser.name,
-                    location: githubUser.location,
-                    company: githubUser.company,
-                  };
-                }
-              } catch (error) {
-                console.error(`Failed to fetch GitHub user ${contributor.actor_login}:`, error);
-              }
-              return contributor;
-            })
-        );
+        const contributorsWithDetails: Contributor[] = [];
+        for (const contributor of (data as Contributor[])) {
+          try {
+            const response = await fetchWithCache(`https://api.github.com/users/${contributor.actor_login}`);
+            if (response.ok) {
+              const githubUser = await response.json();
+              contributorsWithDetails.push({
+                ...contributor,
+                actor_id: contributor.actor_id || githubUser.id,
+                avatar_url: githubUser.avatar_url,
+                bio: githubUser.bio,
+                name: githubUser.name,
+                location: githubUser.location,
+                company: githubUser.company,
+              });
+            } else {
+              contributorsWithDetails.push(contributor);
+            }
+          } catch (error) {
+            console.error(`Failed to fetch GitHub user ${contributor.actor_login}:`, error);
+            contributorsWithDetails.push(contributor);
+          }
+        }
         setContributors(contributorsWithDetails);
       }
+
       setLoadingContributors(false);
     };
     const fetchProjectGithubInfo = async (repoName: string) => {
@@ -206,10 +208,11 @@ export default function ProjectDetail(): JSX.Element {
         console.error(`Failed to fetch OpenRank data for ${repoName}:`, error);
       }
     };
+
     fetchProjectGithubInfo(repo_name);
+    fetchOpenRankData(repo_name);
     fetchReleases(repo_name);
     fetchContributors(repo_name);
-    fetchOpenRankData(repo_name);
   }, [location.search]);
 
 
@@ -256,21 +259,48 @@ export default function ProjectDetail(): JSX.Element {
     history.push(`/llm-oss-landscape/contributor_detail?data=${encoded}`);
   };
 
-// GitHub API 缓存工具函数 - 缓存 12 小时
+// GitHub API 缓存工具函数 - 使用 localStorage 缓存 12 小时
   const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12 小时
-  const githubApiCache = new Map<string, { data: any; timestamp: number }>();
+  const CACHE_PREFIX = 'github_api_cache_';
+
+  // 从 localStorage 获取缓存
+  const getCache = (url: string): { data: any; timestamp: number } | null => {
+    try {
+      const cached = localStorage.getItem(CACHE_PREFIX + url);
+      if (cached) {
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_DURATION) {
+          return { data, timestamp };
+        }
+        // 过期则删除
+        localStorage.removeItem(CACHE_PREFIX + url);
+      }
+    } catch (e) {
+      console.error('Failed to get cache from localStorage:', e);
+    }
+    return null;
+  };
+
+  // 存入 localStorage 缓存
+  const setCache = (url: string, data: any): void => {
+    try {
+      localStorage.setItem(CACHE_PREFIX + url, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      console.error('Failed to set cache to localStorage:', e);
+    }
+  };
 
 // 上次请求时间戳，用于限流
   let lastRequestTime = 0;
 
   const fetchWithCache = async (url: string): Promise<Response> => {
-    const cacheKey = url;
-
     // 检查缓存
-    const cached = githubApiCache.get(cacheKey);
-    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    const cached = getCache(url);
+    if (cached) {
       console.log(`[Cache] Using cached data for: ${url}`);
-      // 返回一个模拟的 Response 对象
       const response = new Response(JSON.stringify(cached.data), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
@@ -278,25 +308,19 @@ export default function ProjectDetail(): JSX.Element {
       return response;
     }
 
-    // 休眠 100ms 避免被限流
-    const now = Date.now();
-    if (now - lastRequestTime < 100) {
-      await new Promise(resolve => setTimeout(resolve, 100 - (now - lastRequestTime)));
-    }
-    lastRequestTime = Date.now();
+    // 随机休眠 50-100ms 避免被限流
+    const randomDelay = Math.floor(Math.random() * 200) + 100; // 50-100ms
+    await new Promise(resolve => setTimeout(resolve, randomDelay));
 
     // 发起实际请求
     const response = await fetch(url, {
-      headers: {
-        Accept: 'application/vnd.github.v3+json'
-        ,Authorization: `Bearer ${GITHUB_TOKEN}`
-      }
+      headers: GITHUB_HEADERS
     });
 
     if (response.ok) {
       const data = await response.json();
-      // 存入缓存
-      githubApiCache.set(cacheKey, { data, timestamp: Date.now() });
+      // 存入 localStorage 缓存
+      setCache(url, data);
       console.log(`[Cache] Cached data for: ${url}`);
 
       // 返回新的 Response 对象
