@@ -146,7 +146,6 @@ export default function ProjectDetail(): JSX.Element {
         }
 
         const data = await response.json();
-        console.log('重新设置:',data);
         setProject({
           repo_id: '',
           repo_name: repoName,
@@ -308,28 +307,37 @@ export default function ProjectDetail(): JSX.Element {
       return response;
     }
 
-    // 随机休眠 50-100ms 避免被限流
-    const randomDelay = Math.floor(Math.random() * 200) + 100; // 50-100ms
-    await new Promise(resolve => setTimeout(resolve, randomDelay));
+    // 发起中转请求
+    const proxyUrl = "https://mosn.io/api/insight/githubApiAdaptor?url=" + url;
+    console.log("[Proxy] Request URL:", proxyUrl);
 
-    // 发起实际请求
-    const response = await fetch(url, {
-      headers: GITHUB_HEADERS
-    });
+    const response = await fetch(proxyUrl);
 
     if (response.ok) {
-      const data = await response.json();
-      // 存入 localStorage 缓存
-      setCache(url, data);
-      console.log(`[Cache] Cached data for: ${url}`);
+      // 解析代理返回的JSON
+      const resData = await response.json();
+      console.log("[Proxy] Raw response:", resData);
 
-      // 返回新的 Response 对象
-      return new Response(JSON.stringify(data), {
+      // 代理返回格式: { ok: true, json: { ...GitHub数据... } }
+      // 提取真正的GitHub数据
+      const githubData = resData.json;
+
+      if (!githubData) {
+        console.error("[Proxy] No GitHub data in response:", resData);
+        return new Response(JSON.stringify({ error: "No GitHub data" }), {
+          status: 502,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      // 返回新的Response对象
+      return new Response(JSON.stringify(githubData), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
+    console.error("[Proxy] Request failed:", response.status, response.statusText);
     return response;
   };
 
