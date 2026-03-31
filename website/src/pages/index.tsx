@@ -256,9 +256,9 @@ export default function InteractiveLandscape(): JSX.Element {
         // Apply search filter
         if (searchTerm.trim()) {
             filtered = filtered.filter(project =>
-                project.repo_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                project.classification.toLowerCase().includes(searchTerm.toLowerCase())
+                (project.repo_name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (project.description || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (project.classification || '').toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
