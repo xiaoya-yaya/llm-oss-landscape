@@ -31,6 +31,7 @@ export default function ProjectDetail(): JSX.Element {
   const [openrankData, setOpenrankData] = useState<{ date: string; value: number }[]>([]);
 
   const [loadingContributors, setLoadingContributors] = useState(false);
+  const [loadingRealeases, setLoadingRealeases] = useState(false);
 
   // Parse project data from URL query params
   useEffect(() => {
@@ -56,13 +57,58 @@ export default function ProjectDetail(): JSX.Element {
         console.error('Failed to parse project data:', e);
       }
     }
+    // Releases 缓存配置：2 天
+    const RELEASES_CACHE_DURATION = 2 * 24 * 60 * 60 * 1000; // 2 天
+    const RELEASES_CACHE_PREFIX = 'releases_cache_';
+
+    // Releases 缓存工具函数
+    const getReleasesCache = (repoName: string): { releases: Release[]; features: string[]; timestamp: number } | null => {
+      try {
+        const cached = localStorage.getItem(RELEASES_CACHE_PREFIX + repoName);
+        if (cached) {
+          const { releases, features, timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < RELEASES_CACHE_DURATION) {
+            console.log(`[Releases Cache] Using cached data for: ${repoName}`);
+            return { releases, features, timestamp };
+          }
+          // 过期则删除
+          localStorage.removeItem(RELEASES_CACHE_PREFIX + repoName);
+        }
+      } catch (e) {
+        console.error('Failed to get releases cache from localStorage:', e);
+      }
+      return null;
+    };
+
+    // 存入 Releases 缓存
+    const setReleasesCache = (repoName: string, releases: Release[], features: string[]): void => {
+      try {
+        localStorage.setItem(RELEASES_CACHE_PREFIX + repoName, JSON.stringify({
+          releases,
+          features,
+          timestamp: Date.now()
+        }));
+      } catch (e) {
+        console.error('Failed to set releases cache to localStorage:', e);
+      }
+    };
+
     const fetchReleases = async (repoName: string) => {
       if (!repoName) return;
 
       try {
+        setLoadingRealeases(true);
         const sixMonthsAgo = new Date();
         sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
 
+        // 先检查缓存
+        const cachedData = getReleasesCache(repoName);
+        if (cachedData) {
+          setReleases(cachedData.releases);
+          setFeature(cachedData.features);
+          setLoadingRealeases(false);
+          return cachedData.releases;
+        }
 
         const response = await fetchWithCache(
             `https://api.github.com/repos/${repoName}/releases?per_page=50`
@@ -79,11 +125,20 @@ export default function ProjectDetail(): JSX.Element {
           return publishedDate >= sixMonthsAgo;
         });
         console.log('recentReleases', recentReleases);
+
+        // 提取关键特性
+        const extractedFeatures = extractKeyFeatures(recentReleases);
+
+        // 存入缓存
+        setReleasesCache(repoName, recentReleases, extractedFeatures);
+
         setReleases(recentReleases);
-        setFeature(extractKeyFeatures(recentReleases));
+        setFeature(extractedFeatures);
+        setLoadingRealeases(false);
         return recentReleases;
       } catch (error) {
         console.error(`Failed to fetch releases for ${repoName}:`, error);
+        setLoadingRealeases(false);
         return [];
       }
     };
@@ -210,8 +265,9 @@ export default function ProjectDetail(): JSX.Element {
 
     fetchProjectGithubInfo(repo_name);
     fetchOpenRankData(repo_name);
-    fetchReleases(repo_name);
     fetchContributors(repo_name);
+
+    fetchReleases(repo_name);
   }, [location.search]);
 
 
@@ -506,7 +562,7 @@ export default function ProjectDetail(): JSX.Element {
       'enhance'
     ];
 
-    releases.slice(0, 5).forEach((release) => {
+    releases.slice(0, 10).forEach((release) => {
       const lines = release.body.split('\n');
       lines.forEach((line) => {
         const trimmedLine = line.trim();
@@ -746,7 +802,9 @@ export default function ProjectDetail(): JSX.Element {
             </div>
 
             {/* 版本发布记录 */}
-            {releases.length > 0 && (
+            {loadingRealeases ? (
+                <p>Loading releases...</p>
+            ) :  releases.length > 0  && (
                 <div className={styles.releasesSection}>
                   <h3>版本发布记录</h3>
                   {/* 近期关键特性 - 总结卡片 */}

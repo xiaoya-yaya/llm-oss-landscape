@@ -63,53 +63,27 @@ const mockContributorStats: ContributorStats = {
 };
 
 const mockTopRepos: RepoContribution[] = [
-  {
-    repo_name: 'microsoft/vscode',
-    openrank: 856
-  },
-  {
-    repo_name: 'facebook/react',
-    openrank: 623
-  },
-  {
-    repo_name: 'tensorflow/tensorflow',
-    openrank: 512
-  },
-  {
-    repo_name: 'kubernetes/kubernetes',
-    openrank: 445
-  },
-  {
-    repo_name: 'golang/go',
-    openrank: 389
-  },
-  {
-    repo_name: 'rust-lang/rust',
-    openrank: 312
-  },
-  {
-    repo_name: 'python/cpython',
-    openrank: 267
-  },
-  {
-    repo_name: 'microsoft/TypeScript',
-    openrank: 234
-  },
-  {
-    repo_name: 'vuejs/vue',
-    openrank: 198
-  },
-  {
-    repo_name: 'twbs/bootstrap',
-    openrank: 156
-  }
 ];
 
 export default function ContributorDetail(): JSX.Element {
   const history = useHistory();
   const location = useLocation();
+
+  // 头部基本信息（从 URL 参数获取，立即可用）
+  const [basicInfo, setBasicInfo] = useState<{
+    actor_login: string;
+    actor_id: number;
+    avatar_url: string;
+    name?: string;
+    bio?: string;
+    location?: string;
+    company?: string;
+  } | null>(null);
+
+  // 详情数据（异步加载）
   const [contributor, setContributor] = useState<ContributorStats | null>(null);
   const [topRepos, setTopRepos] = useState<RepoContribution[]>([]);
+  const [loadingDetails, setLoadingDetails] = useState(true);
 
   // 获取当前的年份和月份，计算过去12个月的起始日期
   const now = new Date();
@@ -172,10 +146,22 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
     const contributorData = params.get('data');
 
     const fetchData = async () => {
-      if (contributorData) {
-        try {
+      setLoadingDetails(true);
+      try {
+        if (contributorData) {
           const decoded = decodeURIComponent(contributorData);
           const data = JSON.parse(decoded);
+
+          // 先设置头部基本信息（立即可用）
+          setBasicInfo({
+            actor_login: data.actor_login || '',
+            actor_id: data.actor_id || 0,
+            avatar_url: data.avatar_url || '',
+            name: data.name,
+            bio: data.bio,
+            location: data.location,
+            company: data.company,
+          });
 
           // 从 URL 获取 actor_id
           const actorId = data.actor_id;
@@ -201,15 +187,17 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
             totalOpenrank: openrank ?? data.openrank ?? mockContributorStats.totalOpenrank,
           });
           setTopRepos(repos && repos.length > 0 ? repos : mockTopRepos);
-        } catch (e) {
-          console.error('Failed to parse contributor data:', e);
+        } else {
+          // 没有 URL 数据时使用 Mock 数据
           setContributor(mockContributorStats);
           setTopRepos(mockTopRepos);
         }
-      } else {
-        // 没有 URL 数据时使用 Mock 数据
+      } catch (e) {
+        console.error('Failed to parse contributor data:', e);
         setContributor(mockContributorStats);
         setTopRepos(mockTopRepos);
+      } finally {
+        setLoadingDetails(false);
       }
     };
 
@@ -232,11 +220,11 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
   };
 
   const handleBack = () => {
-    history.push('/llm-oss-landscape');
+    history.goBack();
   };
 
-
-  if (!contributor) {
+  // 如果没有基本信息，显示 404
+  if (!basicInfo) {
     return (
       <Layout title="Contributor Not Found">
         <div style={{ padding: '40px', textAlign: 'center' }}>
@@ -258,7 +246,7 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
   }
 
   return (
-    <Layout title={`Contributor - ${contributor.actor_login}`}>
+    <Layout title={`Contributor - ${basicInfo.actor_login}`}>
       <div style={fullPageStyles.container as any}>
         <div style={fullPageStyles.card as any}>
           <button onClick={handleBack} style={{
@@ -274,7 +262,7 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
             ← 返回
           </button>
 
-          {/* 1. 开源开发者头部简介 */}
+          {/* 1. 开源开发者头部简介（立即显示） */}
           <div style={{
             background: 'white',
             borderRadius: '12px',
@@ -283,10 +271,10 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-              <a href={`https://github.com/${contributor.actor_login}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://github.com/${basicInfo.actor_login}`} target="_blank" rel="noopener noreferrer">
                 <img
-                  src={contributor.avatar_url}
-                  alt={contributor.actor_login}
+                  src={basicInfo.avatar_url}
+                  alt={basicInfo.actor_login}
                   style={{
                     width: '120px',
                     height: '120px',
@@ -298,27 +286,27 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
               <div>
 
                 <h1 style={{ margin: '0 0 8px 0', fontSize: '28px', color: '#1a1a1a' }}>
-                  <a href={`https://github.com/${contributor.actor_login}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#1a1a1a' }}>
-                    {contributor.name || contributor.actor_login}
+                  <a href={`https://github.com/${basicInfo.actor_login}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: '#1a1a1a' }}>
+                    {basicInfo.name || basicInfo.actor_login}
                   </a>
                 </h1>
                 <p style={{ margin: '0 0 8px 0', fontSize: '16px', color: '#666' }}>
-                  @{contributor.actor_login}
+                  @{basicInfo.actor_login}
                 </p>
-                {contributor.bio && (
+                {basicInfo.bio && (
                   <p style={{ margin: '0 0 12px 0', fontSize: '15px', color: '#444', maxWidth: '600px' }}>
-                    {contributor.bio}
+                    {basicInfo.bio}
                   </p>
                 )}
                 <div style={{ display: 'flex', gap: '20px', color: '#666', fontSize: '14px' }}>
-                  {contributor.location && (
+                  {basicInfo.location && (
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      📍 {contributor.location}
+                      📍 {basicInfo.location}
                     </span>
                   )}
-                  {contributor.company && (
+                  {basicInfo.company && (
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      🏢 {contributor.company}
+                      🏢 {basicInfo.company}
                     </span>
                   )}
                 </div>
@@ -337,104 +325,110 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
             <h2 style={{ margin: '0 0 12px 0', fontSize: '16px', color: '#1a1a1a' }}>
               活跃度统计 Overview
             </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(7, 1fr)',
-              gap: '10px'
-            }}>
+            {loadingDetails ? (
+              <div style={{ padding: '40px', textAlign: 'center', color: '#666' }}>
+                加载中...
+              </div>
+            ) : contributor ? (
               <div style={{
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center'
+                display: 'grid',
+                gridTemplateColumns: 'repeat(7, 1fr)',
+                gap: '10px'
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#4285f4' }}>
-                  {formatNumber(contributor.totalIssues)}
+                <div style={{
+                  background: '#f8f9fa',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#4285f4' }}>
+                    {formatNumber(contributor.totalIssues)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    提交 Issue
+                  </div>
                 </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  提交 Issue
+                <div style={{
+                  background: '#f8f9fa',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#34a853' }}>
+                    {formatNumber(contributor.participatedIssuePR)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    参与 Issue/PR
+                  </div>
+                </div>
+                <div style={{
+                  background: '#f8f9fa',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#fbbc04' }}>
+                    {formatNumber(contributor.totalPRs)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    提交 PR
+                  </div>
+                </div>
+                <div style={{
+                  background: '#f8f9fa',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#fa7b17' }}>
+                    {formatNumber(contributor.mergedPRs)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    合入 PR
+                  </div>
+                </div>
+                <div style={{
+                  background: '#f8f9fa',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#9334e6' }}>
+                    {formatNumber(contributor.prReviews)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    PR 评审
+                  </div>
+                </div>
+                <div style={{
+                  background: '#f8f9fa',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#ea4335' }}>
+                    {formatNumber(contributor.codeChanges)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    代码变更
+                  </div>
+                </div>
+                <div style={{
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  borderRadius: '6px',
+                  padding: '12px 6px',
+                  textAlign: 'center',
+                  color: 'white'
+                }}>
+                  <div style={{ fontSize: '18px', fontWeight: '600' }}>
+                    {formatNumber(contributor.totalOpenrank)}
+                  </div>
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '2px', whiteSpace: 'nowrap' }}>
+                    OpenRank
+                  </div>
                 </div>
               </div>
-              <div style={{
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center'
-              }}>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#34a853' }}>
-                  {formatNumber(contributor.participatedIssuePR)}
-                </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  参与 Issue/PR
-                </div>
-              </div>
-              <div style={{
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center'
-              }}>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#fbbc04' }}>
-                  {formatNumber(contributor.totalPRs)}
-                </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  提交 PR
-                </div>
-              </div>
-              <div style={{
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center'
-              }}>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#fa7b17' }}>
-                  {formatNumber(contributor.mergedPRs)}
-                </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  合入 PR
-                </div>
-              </div>
-              <div style={{
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center'
-              }}>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#9334e6' }}>
-                  {formatNumber(contributor.prReviews)}
-                </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  PR 评审
-                </div>
-              </div>
-              <div style={{
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center'
-              }}>
-                <div style={{ fontSize: '18px', fontWeight: '600', color: '#ea4335' }}>
-                  {formatNumber(contributor.codeChanges)}
-                </div>
-                <div style={{ fontSize: '14px', color: '#666', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  代码变更
-                </div>
-              </div>
-              <div style={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                borderRadius: '6px',
-                padding: '12px 6px',
-                textAlign: 'center',
-                color: 'white'
-              }}>
-                <div style={{ fontSize: '18px', fontWeight: '600' }}>
-                  {formatNumber(contributor.totalOpenrank)}
-                </div>
-                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', marginTop: '2px', whiteSpace: 'nowrap' }}>
-                  OpenRank
-                </div>
-              </div>
-            </div>
+            ) : null}
           </div>
 
           {/* 3. 贡献度 Top 10 仓库 */}
@@ -447,65 +441,71 @@ GROUP BY repo_name ORDER BY openrank DESC LIMIT 10
             <h2 style={{ margin: '0 0 24px 0', fontSize: '20px', color: '#1a1a1a' }}>
               贡献度 Top 10 仓库
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
-              {topRepos.map((repo, index) => (
-                <div
-                  key={repo.repo_name}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '16px',
-                    background: '#f8f9fa',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#f0f0f0';
-                    e.currentTarget.style.transform = 'translateX(4px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#f8f9fa';
-                    e.currentTarget.style.transform = 'translateX(0)';
-                  }}
-                >
-                  <span style={{
-                    width: '32px',
-                    height: '32px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    color: index < 3 ? '#fa7b17' : '#666',
-                    background: index < 3 ? 'rgba(250,123,23,0.1)' : '#e8e8e8',
-                    borderRadius: '50%',
-                    marginRight: '16px'
-                  }}>
-                    {index + 1}
-                  </span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '16px', fontWeight: '500', color: '#1a1a1a' }}>
-                      {repo.repo_name}
+            {loadingDetails ? (
+              <div style={{ padding: '40px', textAlign: 'center', color: '#666' }}>
+                加载中...
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                {topRepos.map((repo, index) => (
+                  <div
+                    key={repo.repo_name}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '16px',
+                      background: '#f8f9fa',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#f0f0f0';
+                      e.currentTarget.style.transform = 'translateX(4px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#f8f9fa';
+                      e.currentTarget.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    <span style={{
+                      width: '32px',
+                      height: '32px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      color: index < 3 ? '#fa7b17' : '#666',
+                      background: index < 3 ? 'rgba(250,123,23,0.1)' : '#e8e8e8',
+                      borderRadius: '50%',
+                      marginRight: '16px'
+                    }}>
+                      {index + 1}
+                    </span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '16px', fontWeight: '500', color: '#1a1a1a' }}>
+                        {repo.repo_name}
+                      </div>
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0px',
+                      padding: '8px 16px',
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      borderRadius: '20px',
+                      color: 'white',
+                      fontSize: '14px',
+                      fontWeight: '500'
+                    }}>
+                      <span>🏆</span>
+                      <span>{formatNumber(repo.openrank)}</span>
                     </div>
                   </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0px',
-                    padding: '8px 16px',
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    borderRadius: '20px',
-                    color: 'white',
-                    fontSize: '14px',
-                    fontWeight: '500'
-                  }}>
-                    <span>🏆</span>
-                    <span>{formatNumber(repo.openrank)}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
         </div>

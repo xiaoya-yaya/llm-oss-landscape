@@ -72,13 +72,13 @@ const config: Config = {
   ],
 
   plugins: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        indexDocs: false,
-        indexBlog: true,
-      },
-    ],
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     indexDocs: false,
+    //     indexBlog: true,
+    //   },
+    // ],
     require.resolve("docusaurus-plugin-image-zoom"),
   ],
 
@@ -89,6 +89,7 @@ const config: Config = {
 
   themeConfig:
     ({
+      algolia: null, // 👈 添加这一行，移除右上角搜索框
       image: 'img/logo/ant-opensource.png',
       navbar: {
         title: '',
