@@ -13,7 +13,7 @@ const config: Config = {
   tagline: 'Open Source Insight',
   favicon: 'img/logo/ant-opensource.png',
   url: 'https://antgroup.github.io',
-  baseUrl: `${GITHUB_PAGES_URL_PATH}/${process.env.PULL_NUM ? `pull_${process.env.PULL_NUM}/` : ''}`,
+  baseUrl: `${GITHUB_PAGES_URL_PATH}`,
   organizationName: 'antgroup',
   projectName: 'antoss-landscape',
   deploymentBranch: 'gh-pages',
@@ -39,6 +39,7 @@ const config: Config = {
     ossBaseUrl: 'https://oss.open-digger.cn/',
     pullNumber: process.env.PULL_NUM,
     imagePath: process.env.PULL_NUM ? `/pull_${process.env.PULL_NUM}/img/` : '/img/',
+    dashscopeApiKey: process.env.DASHSCOPE_API_KEY || '',
   },
 
   presets: [
@@ -71,13 +72,13 @@ const config: Config = {
   ],
 
   plugins: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        indexDocs: false,
-        indexBlog: true,
-      },
-    ],
+    // [
+    //   require.resolve("@easyops-cn/docusaurus-search-local"),
+    //   {
+    //     indexDocs: false,
+    //     indexBlog: true,
+    //   },
+    // ],
     require.resolve("docusaurus-plugin-image-zoom"),
   ],
 
@@ -88,18 +89,19 @@ const config: Config = {
 
   themeConfig:
     ({
+      algolia: null, // 👈 添加这一行，移除右上角搜索框
       image: 'img/logo/ant-opensource.png',
       navbar: {
         title: '',
         logo: {
           alt: 'Logo',
           src: 'img/logo/ant-opensource.png',
-          href: '/interactive-landscape',
+          href: '/',
         },
         hideOnScroll: true,
         items: [
           {
-            to: '/interactive-landscape',
+            to: '/',
             label: 'Dashboards',
             position: 'left',
           },
