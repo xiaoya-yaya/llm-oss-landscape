@@ -15,11 +15,11 @@
 将近半年的时间过去了，这些项目如今发展如何了？我们从社区发展的视角做了一个小小的观察。
 
 ### 项目各自的整体发展
-![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/85156528/1754816761206-5dfc03db-e15d-4ba8-9c61-84a43bb3dba4.png)
+![](imgs/00-img-01.png)
 
 （star history：[https://www.star-history.com/](https://www.star-history.com/)）
 
-![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/85156528/1754819579044-bf52e26d-e344-4321-9f27-40579c4b219b.png)
+![](imgs/00-img-02.png)
 
 （OpenRank：[https://open-digger.cn/docs/user_docs/metrics/openrank/](https://open-digger.cn/docs/user_docs/metrics/openrank)）
 
@@ -197,9 +197,9 @@
 ### 紧密关联的生态项目们
 最后，让我们跟随开发者们的行为轨迹，看看和这些项目紧密关联的生态中还有哪些项目，他们之间又在怎样地产生关联？
 
-![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/85156528/1754848454978-b8073886-5b9d-4834-80b4-735ea0b1eead.png)![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/85156528/1754912602964-9c8e5182-6523-4113-aa10-d1b4795c8220.png)
+![](imgs/00-img-03.png)![](imgs/00-img-06.png)
 
-![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/85156528/1754848496244-f2fbb212-a6b5-4e7c-b0dc-9f0d1589e0be.png)![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/85156528/1754848534782-e20e2fec-0666-4dd9-875c-cb0523aea6cd.png)
+![](imgs/00-img-04.png)![](imgs/00-img-05.png)
 
 （OSGraph：[https://osgraph.com/](https://osgraph.com/)）
 

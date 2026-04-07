@@ -1,4 +1,18 @@
-# Open Source LLM Landscape and Trends
+# Agentic AI Landscape and Trends
+
+
+[![Webiste](https://img.shields.io/badge/Landscape-Online-yellow?style=flat)](https://antoss-landscape.my.canva.site/)
+[![inclusionAI](https://img.shields.io/badge/AGI-inclusionAI-White?style=flat)](inclusionai.github.io)
+[![Dashboard](https://img.shields.io/badge/Platform-Trends-blue?style=flat)](https://antgroup.github.io/llm-oss-landscape/)
+
+
+![Lastest Landscape](/reports/260401_agentic_landscape/2604_agentic_landscape.jpg)
+
+🧐 **Latest Insights**: [Taking the Pulse of Agentic AI from the Developer Community at the End of Q1 2026](/reports/260401_agentic_landscape/01-Taking-the-Pulse-of-Agentic-AI-Q1-2026.md)
+
+---
+
+## LLM Landscape and Trends 2025
 
 **Report 1.0**
 🌐️ [English Report](https://medium.com/@ant-oss/open-source-llm-development-2025-landscape-trends-and-insights-4e821bceba68) | [中文报告](https://mp.weixin.qq.com/s/2xwyGPZppdYmU_cDX3Xhyg)
@@ -8,9 +22,10 @@
 
 ![LLM Development Landscape](/reports/250913_llm_landscape/figures/llm_development_landscape.png)
 
-**Online Interactive Version:** https://antoss-landscape.my.canva.site
 
 ![Large Models Landscape](/reports/250913_llm_landscape/figures/large_models_landscape.png)
+
+---
 
 ## How Do We Select Projects?
 

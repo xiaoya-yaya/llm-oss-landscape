@@ -26,3 +26,5 @@ yarn-error.log*
 publish.sh
 .venv
 .cursor
+.idea
+.mcp.json
