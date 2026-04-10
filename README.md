@@ -2,7 +2,7 @@
 
 
 [![Webiste](https://img.shields.io/badge/Landscape-Online-yellow?style=flat)](https://antoss-landscape.my.canva.site/)
-[![inclusionAI](https://img.shields.io/badge/AGI-inclusionAI-White?style=flat)](inclusionai.github.io)
+[![inclusionAI](https://img.shields.io/badge/AGI-inclusionAI-White?style=flat)](https://www.inclusion-ai.org/insight)
 [![Dashboard](https://img.shields.io/badge/Platform-Trends-blue?style=flat)](https://antgroup.github.io/llm-oss-landscape/)
 
 
