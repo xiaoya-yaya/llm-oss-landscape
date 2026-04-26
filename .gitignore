@@ -25,6 +25,13 @@ yarn-error.log*
 .vscode
 publish.sh
 .venv
-.cursor
 .idea
 .mcp.json
+
+# Agents
+.cursor
+.claude
+.codex
+.gemini
+.opencode
+.qoder

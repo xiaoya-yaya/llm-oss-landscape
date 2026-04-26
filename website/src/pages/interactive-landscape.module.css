@@ -1,29 +1,38 @@
+/**
+ * Interactive landscape page — clean, light aesthetic.
+ */
+
 .pageContainer {
-  padding: 20px;
+  padding: 24px;
   max-width: 98%;
   margin: 0 auto;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
 }
 
+/* ── Header ── */
 .header {
   text-align: center;
-  margin-bottom: 30px;
-  padding-top: 20px;
+  margin-bottom: 32px;
+  padding-top: 24px;
 }
 
 .header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
   font-weight: 700;
-  color: #333;
+  color: #17191c;
+  letter-spacing: -0.02em;
 }
 
 .header p {
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 30px;
+  font-size: 1.05rem;
+  color: #777b86;
+  margin-bottom: 32px;
 }
 
+/* ── Search ── */
 .searchContainer {
   position: relative;
   max-width: 500px;
@@ -32,17 +41,26 @@
 
 .searchInput {
   width: 100%;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  padding: 14px 20px;
+  font-size: 15px;
+  border-radius: 16px;
+  border: 1px solid #e0e0e0;
   box-shadow: none;
+  background: #fafafa;
   transition: all 0.2s ease;
+  font-family: inherit;
+  color: #17191c;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #4285f4;
+  border-color: #615ced;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(97, 92, 237, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #aaa;
 }
 
 .clearSearch {
@@ -53,35 +71,38 @@
   background: none;
   border: none;
   font-size: 18px;
-  color: #999;
+  color: #aaa;
   cursor: pointer;
 }
 
 .clearSearch:hover {
-  color: #666;
+  color: #615ced;
 }
 
+/* ── Messages ── */
 .errorMessage {
   color: #d32f2f;
   margin-top: 10px;
-  padding: 10px;
-  background-color: rgba(211, 47, 47, 0.1);
-  border-radius: 4px;
+  padding: 12px 16px;
+  background-color: rgba(211, 47, 47, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(211, 47, 47, 0.15);
 }
 
 .sampleDataNotice {
-  color: #ff9800;
-  padding: 10px;
+  color: #e67e22;
+  padding: 12px 16px;
   margin: 10px 0 20px;
-  background-color: rgba(255, 152, 0, 0.1);
-  border-radius: 4px;
+  background-color: rgba(230, 126, 34, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(230, 126, 34, 0.15);
   text-align: center;
   font-weight: 500;
 }
 
-/* ProductHunt-style hierarchical categories */
+/* ── Category filters ── */
 .categoriesHierarchy {
-  margin: 10px 0 30px;
+  margin: 10px 0 32px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -94,32 +115,34 @@
 }
 
 .categoryGroupButton {
-  background-color: #f5f5f5;
+  background-color: #fafafa;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-size: 0.9rem;
+  border-radius: 16px;
+  padding: 8px 16px;
+  font-size: 0.88rem;
   font-weight: 500;
-  color: #333;
+  color: #17191c;
   cursor: pointer;
   display: flex;
   align-items: center;
   transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .categoryGroupButton:hover {
-  background-color: #e9e9e9;
+  background-color: #f0efff;
+  border-color: #c8c5f3;
 }
 
 .categoryGroupButtonActive {
-  background-color: #e6f2ff;
-  border-color: #b3d7ff;
+  background-color: #615ced;
+  border-color: #615ced;
+  color: #ffffff;
 }
 
 .categoryGroupIcon {
   margin-left: 8px;
   font-size: 0.8em;
-  color: #666;
 }
 
 .categoryItems {
@@ -128,40 +151,44 @@
   left: 0;
   width: max-content;
   min-width: 100%;
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 8px;
-  margin-top: 4px;
+  margin-top: 6px;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .categoryItem {
   background-color: transparent;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 6px 12px;
   font-size: 0.85rem;
-  color: #333;
+  color: #17191c;
   cursor: pointer;
   text-align: left;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+  font-family: inherit;
 }
 
 .categoryItem:hover {
-  background-color: #f9f9f9;
+  background-color: #f8f7ff;
+  border-color: #e0e0e0;
 }
 
 .categoryItemActive {
-  background-color: #f0f7ff;
-  border-color: #c2e0ff;
+  background-color: #f0efff;
+  border-color: #c8c5f3;
+  color: #615ced;
+  font-weight: 500;
 }
 
 .categoryColorDot {
@@ -174,33 +201,35 @@
 
 .clearFilters {
   background-color: transparent;
-  color: #666;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 8px 12px;
+  color: #777b86;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 8px 16px;
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .clearFilters:hover {
-  background-color: #f5f5f5;
+  background-color: #fafafa;
+  border-color: #ccc;
 }
 
-/* ProductHunt-style Project Cards */
+/* ── Project Cards Grid ── */
 .phProjectsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
 }
 
 .phProjectCard {
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 20px;
   overflow: hidden;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  box-shadow: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -208,44 +237,54 @@
 
 .phProjectCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  border-color: #c8c5f3;
 }
 
 .phProjectHeader {
-  padding: 20px 20px 10px;
+  padding: 20px 20px 12px;
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
 }
 
 .phProjectLogo {
   width: 48px;
   height: 48px;
-  border-radius: 8px;
+  border-radius: 12px;
   object-fit: cover;
   flex-shrink: 0;
 }
 
 .phProjectInfo {
   flex: 1;
+  min-width: 0;
 }
 
 .phProjectName {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin: 0 0 6px;
-  color: #333;
+  margin: 0 0 4px;
+  color: #17191c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .phProjectDescription {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.88rem;
+  color: #777b86;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/* ── Project Meta / Stats ── */
 .phProjectMeta {
-  padding: 10px 20px 20px;
+  padding: 8px 20px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -261,8 +300,8 @@
 .phProjectStat {
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.85rem;
+  color: #777b86;
 }
 
 .phStatIcon {
@@ -271,35 +310,38 @@
 
 .phStatValue {
   font-weight: 500;
-  color: #333;
+  color: #17191c;
 }
 
 .phProjectCategory {
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  border-radius: 12px;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 20px;
   color: white;
   margin-left: 8px;
+  font-weight: 500;
 }
 
+/* ── Action Buttons ── */
 .phProjectActions {
   display: flex;
   gap: 8px;
 }
 
 .phActionButton {
-  background: none;
+  background: #fafafa;
   border: 1px solid #e0e0e0;
   min-width: 40px;
-  height: 28px;
-  border-radius: 4px;
+  height: 32px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #666;
-  padding: 0 6px;
+  color: #777b86;
+  padding: 0 8px;
+  font-family: inherit;
 }
 
 .voteCount {
@@ -309,31 +351,33 @@
 }
 
 .phActionButton:hover {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #f0efff;
+  border-color: #c8c5f3;
+  color: #615ced;
 }
 
 .phActionButtonActive {
-  background-color: #ff6154;
-  border-color: #ff6154;
-  color: white;
+  background-color: #615ced;
+  border-color: #615ced;
+  color: #ffffff;
 }
 
 .phActionIcon {
   font-size: 0.8rem;
 }
 
-/* Comments section styling */
+/* ── Comments Section ── */
 .commentsSection {
-  padding: 15px;
-  border-top: 1px solid #e0e0e0;
-  background-color: #f9f9f9;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fafafa;
 }
 
 .commentsTitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0 0 10px;
-  color: #333;
+  color: #17191c;
+  font-weight: 600;
 }
 
 .commentsList {
@@ -344,20 +388,20 @@
 
 .commentItem {
   padding: 8px 0;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .commentAuthor {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #333;
+  color: #17191c;
   margin-bottom: 3px;
 }
 
 .commentText {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.4;
+  font-size: 0.88rem;
+  color: #777b86;
+  line-height: 1.5;
 }
 
 .commentForm {
@@ -367,80 +411,96 @@
 
 .commentInput {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  padding: 10px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  background: #fff;
+  font-family: inherit;
+  color: #17191c;
 }
 
 .commentInput:focus {
   outline: none;
-  border-color: #4285f4;
+  border-color: #615ced;
+  box-shadow: 0 0 0 3px rgba(97, 92, 237, 0.1);
 }
 
 .commentSubmit {
-  background-color: #4285f4;
-  color: white;
+  background-color: #17191c;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
-  padding: 0 15px;
-  font-size: 0.9rem;
+  border-radius: 12px;
+  padding: 0 20px;
+  font-size: 0.88rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-family: inherit;
 }
 
 .commentSubmit:hover {
-  background-color: #3367d6;
+  background-color: #333;
 }
 
-/* Project card overlay styling */
+/* ── Overlay ── */
 .projectCardOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   padding: 20px;
+  backdrop-filter: blur(4px);
 }
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
+  top: 12px;
+  right: 16px;
+  background: #f5f5f5;
   border: none;
-  font-size: 24px;
-  color: #666;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #777b86;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .closeButton:hover {
-  color: #333;
+  background: #eee;
+  color: #17191c;
 }
 
+/* ── Loading / No Results ── */
 .loading {
   text-align: center;
-  padding: 40px;
-  font-size: 1.1rem;
-  color: #666;
+  padding: 48px 20px;
+  font-size: 1rem;
+  color: #777b86;
 }
 
 .noResults {
   text-align: center;
-  padding: 40px;
-  font-size: 1.1rem;
-  color: #666;
-  background-color: #f9f9f9;
-  border-radius: 4px;
+  padding: 48px 20px;
+  font-size: 1rem;
+  color: #777b86;
+  background-color: #fafafa;
+  border-radius: 16px;
+  border: 1px solid #e0e0e0;
 }
 
-/* Responsive adjustments */
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .header h1 {
     font-size: 2rem;
@@ -464,7 +524,7 @@
 
   .phProjectMeta {
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
   }
 
   .phProjectStats {
@@ -478,18 +538,18 @@
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .phProjectsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1599px) {
   .phProjectsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
 
 @media (min-width: 1600px) {
   .phProjectsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 }

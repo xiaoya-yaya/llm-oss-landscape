@@ -68,6 +68,10 @@ const config: Config = {
         'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
       crossorigin: 'anonymous',
     },
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap',
+      type: 'text/css',
+    },
     'src/css/custom.css',
   ],
 
@@ -89,16 +93,20 @@ const config: Config = {
 
   themeConfig:
     ({
-      algolia: null, // 👈 添加这一行，移除右上角搜索框
+      colorMode: {
+        defaultMode: 'light',
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
+      },
+      algolia: null,
       image: 'img/logo/ant-opensource.png',
       navbar: {
-        title: '',
+        title: 'Open Source Insight',
         logo: {
           alt: 'Logo',
           src: 'img/logo/ant-opensource.png',
           href: '/',
         },
-        hideOnScroll: true,
         items: [
           {
             to: '/',
@@ -122,18 +130,60 @@ const config: Config = {
         config: {
           background: {
             light: 'rgb(255, 255, 255)',
-            dark: 'rgb(50, 50, 50)'
           }
         }
       },
-      // footer: {
-      //   style: 'dark',
-      //   copyright: `Copyright © ${new Date().getFullYear()} X-lab<br>
-      //     <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备18048778号-4</a>`,
-      // },
+      footer: {
+        style: 'light',
+        links: [
+          {
+            title: 'Resources',
+            items: [
+              {
+                label: 'Blog',
+                to: '/blog',
+              },
+              {
+                label: 'Interactive Landscape',
+                to: '/interactive-landscape',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/X-lab2017/llm-oss-landscape',
+              },
+              {
+                label: 'OpenDigger',
+                href: 'https://open-digger.cn',
+              },
+              {
+                label: 'OpenRank',
+                href: 'https://open-digger.cn/en/docs/user_docs/metrics/openrank',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Canva Report',
+                href: 'https://antoss-landscape.my.canva.site/',
+              },
+              {
+                label: 'Ant Open Source',
+                href: 'https://antgroup.github.io',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} X-lab. Built with Docusaurus.`,
+      },
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
       },
     }) satisfies Preset.ThemeConfig,
 };
