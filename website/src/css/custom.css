@@ -1,43 +1,112 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Global styles — clean, light-only aesthetic inspired by inclusionAI.
  */
 
-/* You can override the default Infima variables here. */
+/* ── Infima / Docusaurus variable overrides ── */
 :root {
-  --ifm-color-primary: #3366FF;
-  --ifm-color-primary-dark: #144fff;
-  --ifm-color-primary-darker: #0544ff;
-  --ifm-color-primary-darkest: #0036d6;
-  --ifm-color-primary-light: #527dff;
-  --ifm-color-primary-lighter: #6188ff;
-  --ifm-color-primary-lightest: #89a6ff;
+  /* Primary palette (soft purple) */
+  --ifm-color-primary: #615ced;
+  --ifm-color-primary-dark: #5550d6;
+  --ifm-color-primary-darker: #4f4acc;
+  --ifm-color-primary-darkest: #403da7;
+  --ifm-color-primary-light: #7772ef;
+  --ifm-color-primary-lighter: #8a86f1;
+  --ifm-color-primary-lightest: #b1aef6;
+
+  /* Typography */
+  --ifm-font-family-base: 'Montserrat', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ifm-font-color-base: #17191c;
+  --ifm-heading-color: #17191c;
+
+  /* Misc */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(97, 92, 237, 0.08);
+  --ifm-global-radius: 12px;
   --banner-height: 40px;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-background-color: #121B2E !important;
-  --ifm-color-primary: #6690FF;
-  --ifm-color-primary-dark: #4276ff;
-  --ifm-color-primary-darker: #3069ff;
-  --ifm-color-primary-darkest: #0045fa;
-  --ifm-color-primary-light: #8aaaff;
-  --ifm-color-primary-lighter: #9cb7ff;
-  --ifm-color-primary-lightest: #cad9ff;
-  --ifm-font-color-base-inverse: #ffffff;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* ── Body background ── */
+body {
+  background-image:
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(97, 92, 237, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 40% at 20% 10%, rgba(133, 195, 255, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 30% at 80% 15%, rgba(168, 165, 247, 0.08) 0%, transparent 50%);
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
+/* ── Navbar ── */
+.navbar {
+  height: 80px;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  border-bottom: none;
+  padding: 0 24px;
+}
+
+.navbar__brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #17191c;
+}
+
+.navbar__link {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #777b86;
+  letter-spacing: 0.01em;
+}
+
+.navbar__link--active,
+.navbar__link:hover {
+  color: #615ced !important;
+}
+
+/* ── Footer ── */
+.footer {
+  background-color: #fafafa;
+  border-top: 1px solid #e0e0e0;
+  padding: 48px 24px 32px;
+}
+
+.footer__title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #17191c;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.footer__link-item {
+  font-size: 0.9rem;
+  color: #777b86;
+  line-height: 2;
+}
+
+.footer__link-item:hover {
+  color: #615ced;
+}
+
+.footer__copyright {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: 32px;
+}
+
+/* ── Fixed banner ── */
 .fixed-banner {
   position: fixed;
   top: 0;
   width: 100%;
   height: var(--banner-height);
-  background-color: red;
+  background-color: #615ced;
   color: white;
   text-align: center;
   padding: 10px 10px;
@@ -65,52 +134,47 @@
   }
 }
 
+/* ── Blockquote ── */
 blockquote {
-  border-left: 6px solid #e0e1da;
-  background-color: #ebfbfa;
-  color: #5b626b;
+  border-left: 4px solid #615ced;
+  background-color: #f8f7ff;
+  color: #777b86;
   font-size: 1rem;
   margin: 0 0 1rem 0;
   padding: 1rem 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  border-radius: 0 12px 12px 0;
   font-style: italic;
 }
 
-html[data-theme="dark"] blockquote {
-  border-left: 6px solid #5c5d5f;
-  background-color: #243950;
-  color: #bcc3cc;
-  box-shadow: none;
-}
-
+/* ── Iframe ── */
 iframe {
   width: 100%;
   height: 500px;
   border: none;
-  border-radius: 10px;
-  /* width: 100%; */
+  border-radius: 16px;
 }
 
+/* ── Details / Accordion ── */
 details {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: all 1.3s ease;
-  padding: 0.5em;
-  transform: scale(1);
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  padding: 0.75em 1em;
+  background: #fff;
 }
 
 details:not([open]):hover {
-  transform: scale(1.02);
-  background-color: #362ecc74;
+  background-color: #f8f7ff;
+  border-color: #615ced;
 }
 
 summary {
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   position: relative;
   padding-right: 20px;
   list-style: none;
+  color: #17191c;
 }
 
 summary::-webkit-details-marker {
@@ -118,28 +182,39 @@ summary::-webkit-details-marker {
 }
 
 summary::after {
-  content: '❯';
+  content: '\276F';
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
   transition: transform 0.3s ease;
+  color: #615ced;
+  font-size: 0.8rem;
 }
 
 details[open] summary::after {
   transform: translateY(-50%) rotate(270deg);
 }
 
-details:not([open]):hover {
-  background-color: #362ecc74;
-}
-
-details>*:not(summary) {
+details > *:not(summary) {
   margin-top: 0.5em;
 }
 
+/* ── Table ── */
 table {
   width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: #17191c;
+}
+
+td, th {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .centered-cell {
@@ -148,39 +223,34 @@ table {
 }
 
 table a {
-  color: #0477eb;
+  color: #615ced;
   text-decoration: none;
-  transition: color 0.25s ease;
+  transition: color 0.2s ease;
 }
 
 table a:hover {
-  color: #049eeb;
+  color: #4f4acc;
   text-decoration: underline;
 }
 
-#elevatedbtn {
-  font-family: Archivo Black;
-  border: 4px solid #050137;
-  border-radius: 12px;
-  box-shadow: 4px 4px 0 #050137;
-  box-sizing: border-box;
-  transition: transform 0.1s ease;
-}
-
-/* #elevatedbtn:hover {
-  transform: scale(1.01);
-} */
-
-/* Redundant since #ID is unique and is mounted for CN (default) and NOT for EN on mount */
-
+/* ── Buttons ── */
+#elevatedbtn,
 #elevatedbtnEN {
-  font-family: Archivo Black;
-  border: 4px solid #050137;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  border: none;
   border-radius: 12px;
-  box-shadow: 4px 4px 0 #050137;
-  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+#elevatedbtn:hover,
+#elevatedbtnEN:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+}
+
+/* ── Article / Content ── */
 article {
   max-width: 1120px;
   margin-left: auto;
@@ -193,10 +263,12 @@ article {
   }
 }
 
+/* ── Utility ── */
 .no-footer footer {
   display: none;
 }
 
+/* ── GitHub dropdown ── */
 .header--github-dropdown {
   display: flex;
   align-items: center;
@@ -210,17 +282,14 @@ article {
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
-html[data-theme='dark'] .header--github-dropdown::before {
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
-}
-
 @media (min-width: 768px) {
   .header--github-dropdown::after {
-    content: '▼';
-    font-size: 16px;
+    content: '\25BC';
+    font-size: 12px;
     margin-left: 4px;
-    margin-top: 7px;
+    margin-top: 5px;
     transition: transform 0.3s ease;
+    color: #777b86;
   }
 
   .header--github-dropdown[aria-expanded="true"]::after {
@@ -229,5 +298,5 @@ html[data-theme='dark'] .header--github-dropdown::before {
 }
 
 .header--github-dropdown:hover {
-  border-radius: 4px;
+  border-radius: 8px;
 }
