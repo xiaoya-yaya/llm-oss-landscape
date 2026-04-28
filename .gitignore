@@ -30,8 +30,8 @@ publish.sh
 
 # Agents
 .cursor
+.gemini
 .claude
 .codex
-.gemini
 .opencode
 .qoder

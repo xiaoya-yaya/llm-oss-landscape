@@ -12,7 +12,8 @@ import requests
 from dotenv import load_dotenv
 
 # Paths
-BASE = "/Users/xiaoyawork/Desktop/GitHub Projects/llm-oss-landscape"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE = os.path.dirname(SCRIPT_DIR)
 ENV_PATH = os.path.join(BASE, "notebooks", ".env")
 INPUT_CSV = os.path.join(BASE, "data", "agentic-ai-projects.csv")
 OUTPUT_JSON = os.path.join(BASE, "data", "project_readmes.json")

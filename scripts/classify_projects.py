@@ -11,7 +11,8 @@ import csv
 from collections import defaultdict
 
 # Paths
-BASE = "/Users/xiaoyawork/Desktop/GitHub Projects/llm-oss-landscape"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE = os.path.dirname(SCRIPT_DIR)
 INPUT_JSON = f"{BASE}/data/project_readmes.json"
 OUTPUT_CSV = f"{BASE}/data/agentic-ai-projects-classified.csv"
 
