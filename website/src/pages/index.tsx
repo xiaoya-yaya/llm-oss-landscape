@@ -249,9 +249,58 @@ export default function InteractiveLandscape(): JSX.Element {
     const {data, loading } = useData<Project[]>({url: getStaticDataUrl('20250501-OpenSourceAI-Landscape/landscape.csv'), type: 'csv'})
     const projects = data || [];
 
+    const ecosystemStats = useMemo(() => {
+        const totalOpenRank = projects.reduce((sum, project) => sum + (parseFloat(project.openrank_25) || 0), 0);
+        const totalStars = projects.reduce((sum, project) => sum + (parseInt(project.stars, 10) || 0), 0);
+        const totalForks = projects.reduce((sum, project) => sum + (parseInt(project.forks, 10) || 0), 0);
+        const languages = new Set(projects.map(project => project.language).filter(Boolean));
+        const categories = new Set(projects.map(project => project.classification).filter(Boolean));
+
+        return [
+            { label: 'Projects', value: projects.length.toLocaleString() },
+            { label: 'Total OpenRank', value: formatNumber(totalOpenRank) },
+            { label: 'Stars', value: formatNumber(totalStars) },
+            { label: 'Forks', value: formatNumber(totalForks) },
+            { label: 'Languages', value: languages.size.toString() },
+            { label: 'Categories', value: categories.size.toString() },
+        ];
+    }, [projects]);
+
+    const groupSummaries = useMemo(() => {
+        return categoryGroups.map(group => {
+            const groupProjects = projects.filter(project => group.categories.includes(project.classification));
+            const groupOpenRank = groupProjects.reduce((sum, project) => sum + (parseFloat(project.openrank_25) || 0), 0);
+
+            return {
+                name: group.name,
+                count: groupProjects.length,
+                openrank: groupOpenRank,
+                topProject: [...groupProjects].sort((a, b) => (parseFloat(b.openrank_25) || 0) - (parseFloat(a.openrank_25) || 0))[0],
+            };
+        }).filter(group => group.count > 0);
+    }, [projects]);
+
+    const topProjects = useMemo(() => {
+        return [...projects]
+            .sort((a, b) => (parseFloat(b.openrank_25) || 0) - (parseFloat(a.openrank_25) || 0))
+            .slice(0, 5);
+    }, [projects]);
+
+    const topLanguages = useMemo(() => {
+        const counts = projects.reduce<Record<string, number>>((acc, project) => {
+            const language = project.language || 'Unknown';
+            acc[language] = (acc[language] || 0) + 1;
+            return acc;
+        }, {});
+
+        return Object.entries(counts)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 6);
+    }, [projects]);
+
     // Filter projects based on search term and active category
     const filteredProjects = useMemo(() => {
-        let filtered = projects;
+        let filtered = [...projects];
 
         // Apply search filter
         if (searchTerm.trim()) {
@@ -354,6 +403,64 @@ export default function InteractiveLandscape(): JSX.Element {
                             )}
                         </div>
                     </div>
+
+                    {!loading && projects.length > 0 && (
+                        <section className={styles.insightsPanel} aria-label="Landscape summary">
+                            <div className={styles.metricGrid}>
+                                {ecosystemStats.map(metric => (
+                                    <div key={metric.label} className={styles.metricItem}>
+                                        <span className={styles.metricValue}>{metric.value}</span>
+                                        <span className={styles.metricLabel}>{metric.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className={styles.insightColumns}>
+                                <div className={styles.groupOverview}>
+                                    {groupSummaries.map(group => (
+                                        <button
+                                            key={group.name}
+                                            className={`${styles.groupSummaryCard} ${activeCategoryGroup === group.name ? styles.groupSummaryCardActive : ''}`}
+                                            style={{ borderTopColor: categoryColors[group.topProject?.classification] || '#615ced' }}
+                                            onClick={() => handleCategoryGroupClick(group.name)}
+                                        >
+                                            <span className={styles.groupSummaryName}>{group.name}</span>
+                                            <span className={styles.groupSummaryMeta}>
+                                                {group.count} projects · {formatNumber(group.openrank)} OpenRank
+                                            </span>
+                                            <span className={styles.groupSummaryTop}>
+                                                Leader: {group.topProject?.repo_name || 'N/A'}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <div className={styles.sideInsights}>
+                                    <div>
+                                        <h2>OpenRank Leaders</h2>
+                                        <ol className={styles.leaderList}>
+                                            {topProjects.map(project => (
+                                                <li key={project.repo_id}>
+                                                    <span>{project.repo_name}</span>
+                                                    <strong>{formatNumber(parseFloat(project.openrank_25) || 0)}</strong>
+                                                </li>
+                                            ))}
+                                        </ol>
+                                    </div>
+                                    <div>
+                                        <h2>Language Mix</h2>
+                                        <div className={styles.languageList}>
+                                            {topLanguages.map(([language, count]) => (
+                                                <span key={language}>
+                                                    {language} <strong>{count}</strong>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    )}
 
                     {/* Hierarchical Category Filter */}
                     <div className={styles.categoriesHierarchy}>
